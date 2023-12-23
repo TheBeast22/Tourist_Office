@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
+use App\Models\Customers_Hotel;
 use Illuminate\Http\Request;
 
-class CompanyController extends Controller
+class CustomersHotelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,13 +14,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-
-        $company= $this->model->getCompanies();
-            foreach($company as $one)
-            {
-                echo json_encode($one);
-
-            }
+        //
     }
 
     /**
@@ -47,21 +41,21 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Customers_Hotel  $customers_Hotel
      * @return \Illuminate\Http\Response
      */
-    public function show($id,Request $request)
+    public function show(Customers_Hotel $customers_Hotel)
     {
-
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Customers_Hotel  $customers_Hotel
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit(Customers_Hotel $customers_Hotel)
     {
         //
     }
@@ -70,10 +64,10 @@ class CompanyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Customers_Hotel  $customers_Hotel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request, Customers_Hotel $customers_Hotel)
     {
         //
     }
@@ -81,21 +75,11 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Customers_Hotel  $customers_Hotel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy(Customers_Hotel $customers_Hotel)
     {
         //
-    }
-    public function info($id,Request $request)
-    {
-        // $company = Company::find($id);
-        // if(request->isMethod('get')){
-        //     $company->update($request->all());
-        //     return redirect()->back();
-        // }else{
-        //     return view('Company',['company'=>$company]);
-        // }
     }
 }

@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ratings', function (Blueprint $table) {
+        Schema::create('customers_hotels', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("hotel_id");
             $table->unsignedBigInteger("customer_id");
-            $table->enum("rate",[0,1,2,3,4,5])->default(0);
-            $table->foreign("hotel_id")->references("id")->on("hotels")->onDelete("CASCADE")->onUpdate("cascade");
+            $table->unsignedBigInteger("hotel_id");
             $table->foreign("customer_id")->references("id")->on("customers")->onDelete("cascade")->onUpdate("cascade");
-            $table->unique(["hotel_id","customer_id"]);
+            $table->foreign("hotel_id")->references("id")->on("hotels")->onDelete("cascade")->onUpdate("cascade");
+            $table->unique(["customer_id","hotel_id"]);
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ratings');
+        Schema::dropIfExists('customers__hotels');
     }
 };
