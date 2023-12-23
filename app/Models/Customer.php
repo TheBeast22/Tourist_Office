@@ -20,10 +20,13 @@ class Customer extends Model
     public function tikets(){
         return $this->belongsToMany(Ticket::class,"bookings");
     }
-    public function hotels(){
+    public function bookhotels(){
         return $this->belongsToMany(Hotel::class,"bookings");
     }
     public function hotelsRating(){
-        return $this->hasMany(Rating::class);
+        return $this->belongsToMany(Hotel::class,"ratings");
+    }
+    public function reservedHotels(){
+        return $this->belongsToMany(Hotel::class,"customers_hotels");
     }
 }
