@@ -14,7 +14,13 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+
+        $company= $this->model->getCompanies();
+            foreach($company as $one)
+            {
+                echo json_encode($one);
+
+            }
     }
 
     /**
@@ -44,9 +50,9 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company)
+    public function show($id,Request $request)
     {
-        //
+
     }
 
     /**
@@ -81,5 +87,15 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         //
+    }
+    public function info($id,Request $request)
+    {
+        // $company = Company::find($id);
+        // if(request->isMethod('get')){
+        //     $company->update($request->all());
+        //     return redirect()->back();
+        // }else{
+        //     return view('Company',['company'=>$company]);
+        // }
     }
 }
