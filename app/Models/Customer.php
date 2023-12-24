@@ -24,7 +24,7 @@ class Customer extends Model
         return $this->belongsToMany(Hotel::class,"bookings");
     }
     public function hotelsRating(){
-        return $this->belongsToMany(Hotel::class,"ratings");
+        return $this->belongsToMany(Hotel::class,"ratings")->withPivot("rate");
     }
     public function reservedHotels(){
         return $this->belongsToMany(Hotel::class,"customers_hotels");
