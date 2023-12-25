@@ -12,6 +12,8 @@ class Rating extends Model
         "hotel_id","customer_id","rate"
     ];
     protected $casts = [
+        "hotel_id"=> "integer",
+        "customer_id"=> "integer",
         "rate"=>"integer"
     ];
     public function customer(){

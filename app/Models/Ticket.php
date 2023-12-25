@@ -29,8 +29,12 @@ public function city(){
  return $this->belongsTo(City::class);
 }
 public function customers(){
-    return $this->belongsToMany(Customer::class,"bookings");
+    return $this->belongsToMany(Customer::class,"bookings")->withPivot("book_date");
 }
 public function hotels(){
-    return $this->belongsToMany(Hotel::class,"bookings");
-}}
+    return $this->belongsToMany(Hotel::class,"bookings")->withPivot("book_date");
+}
+public function bookings(){
+    return $this->hasMany(Booking::class);
+}
+}

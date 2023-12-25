@@ -11,8 +11,16 @@ class Company extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
     protected $fillable=['title','address','phone'];
+    protected $casts = [
+        "title"=> "string",
+        "address"=>"string",
+        "phone"=> "string",
+    ];
 
-    public function Ticket(){
+    public function tickets(){
         return $this->hasMany(Ticket::class);
+    }
+    public function toCities(){
+       return $this->belongsToMany(City::class,"tickets")->withPivot(["date_s","date_e"]);
     }
 }
