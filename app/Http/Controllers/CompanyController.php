@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends Controller
 {
@@ -88,14 +89,18 @@ class CompanyController extends Controller
     {
         //
     }
-    public function info($id,Request $request)
+    public function info(Request $request,$id)
     {
-        // $company = Company::find($id);
-        // if(request->isMethod('get')){
-        //     $company->update($request->all());
-        //     return redirect()->back();
-        // }else{
-        //     return view('Company',['company'=>$company]);
-        // }
+        $company = Company::find($id);
+        if($request->isMethod('get')){
+          $company->push($request->all());
+            return redirect()->back();
+
+
+
+
+        }else{
+            return view('Company',['Company'=>$company]);
+        }
     }
 }

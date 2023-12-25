@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
+use App\http\Controllers\CompanyController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,5 +16,8 @@ use Illuminate\Support\Facades\Auth;
 Route::get("/", function () {
     return view('welcome');
 });
+// Route::get('Company/info/{id}', [CompanyController::class,"info"]);
+
+Route::get('Company/info/{id}', [CompanyController::class,"info"])->name('Company');
 Auth::routes();
 Route::get("home", [App\Http\Controllers\HomeController::class, "index"])->name("home")->middleware("auth");
