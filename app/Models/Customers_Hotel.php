@@ -11,6 +11,10 @@ class Customers_Hotel extends Model
     protected $fillable = [
         "customer_id","hotel_id"
     ];
+    protected $casts = [
+        "customer_id"=> "integer",
+        "hotel_id"=> "integer"
+    ];
     public function customer(){
         return $this->belongsTo(Customer::class);
     }

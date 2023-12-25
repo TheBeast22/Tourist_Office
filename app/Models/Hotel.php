@@ -30,7 +30,17 @@ public function city(){
     }
      
 
-    public function customershotel(){
-        return $this->belongsToMany(customer::class);
+    public function customersReserved(){
+        return $this->belongsToMany(Customer::class,"hotels_customers");
     }
+    public function customersRatedWithRate(){
+        return $this->belongsToMany(Customer::class,"ratings");
+    }
+    public function bookCustomers(){
+        return $this->belongsToMany(Customer::class,"bookings")->withPivot("book_date");
+    }
+    public function bookTickets(){
+        return $this->belongsToMany(Ticket::class,"bookings")->withPivot("book_date");
+    }
+    
 }
