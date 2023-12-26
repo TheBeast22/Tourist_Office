@@ -26,13 +26,20 @@ Route::get("customer/edit/{customer}",[CustomerController::class,"edit"])->name(
 Route::get("customer/delete/{customer}",[CustomerController::class,"destroy"])->name("delete_customer")->middleware("auth");
 Route::get("customer/add/form",[CustomerController::class,"create"])->name("customer_form")->middleware("auth");
 Route::get("customer/one/{customer}",[CustomerController::class,"show"])->name("one_customer")->middleware("auth");
+Route::get("customer/infos",[CustomerController::class,"customerForm"])->name("one_customer_form")->middleware("auth");
+Route::get("customers/booked",[CustomerController::class,"bookedCostomers"])->name("booked_customers")->middleware("auth");
 Route::post("customer/update/{customer}",[CustomerController::class,"update"])->name("update_customer")->middleware("auth");
 Route::post("customer/add",[CustomerController::class,"store"])->name("add_customer")->middleware("auth");
+Route::post("customer/email",[CustomerController::class,"customerFromEmail"])->name("email_customer")->middleware("auth");
 //--------------------------------End of Customer Routes----------------------------------------------------------//
 Route::get("ratings/all",[RatingController::class,"index"])->name("all_ratings")->middleware("auth");
 Route::get("rating/edit/{rating}",[RatingController::class,"edit"])->name("edit_rating")->middleware("auth");
 Route::get("reserved/all",[CustomersHotelController::class,"index"])->name("all_reserved")->middleware("auth");
 Route::get("rating/add/form/{customer_id}/{hotel_id}",[RatingController::class,"create"])->name("rating_form")->middleware("auth");
+Route::get("ratings/all/hotels",[RatingController::class,"allHotelsRatings"])->name("all_hotels_ratings")->middleware("auth");
+Route::get("rating/hotel/form",[RatingController::class,"hotelRatingsForm"])->name("hotel_rating_form")->middleware("auth");
+Route::get("rating/customer/{customer}",[RatingController::class,"customerRatings"])->name("customer_ratings")->middleware("auth");
+Route::post("rating/hotel",[RatingController::class,"hotelRatings"])->name("hotel_ratings")->middleware("auth");
 Route::post("rating/update/{rating}",[RatingController::class,"update"])->name("update_rating")->middleware("auth");
 Route::post("rating/add",[RatingController::class,"store"])->name("add_rating")->middleware("auth");
 //--------------------------------End of Ratings and Reserved Routes----------------------------------------------//

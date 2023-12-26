@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Rating;
 use App\Models\Customer;
+use App\Models\Hotel;
 use Illuminate\Http\Request;
 
 class RatingController extends Controller
@@ -19,7 +20,21 @@ class RatingController extends Controller
         $customers = Customer::whereIn("id",Rating::pluck("customer_id")->toArray())->get();
         return view("ratings.all", ["customers"=> $customers,"ratings"=> $ratings]);
     }
-
+    public function customerRatings(Customer $customer){
+        $ratings = Rating::where("customer_id",$customer->id)->get();
+        return view("ratings.customer",["customer"=> $customer,"ratings"=> $ratings]);
+    }
+    public function allHotelsRatings(){
+        $hotels = Hotel::whereIn("id",Rating::pluck("hotel_id")->toArray())->get();
+        return view("ratings.hotels",["hotels"=> $hotels]);
+    }
+    public function hotelRatingsForm(){
+        return view("ratings.hotelform");
+    }
+    public function hotelRatings(Request $request){
+        $hotel = Hotel::where("name",$request->name)->first();
+        return view("ratings.hotel",["hotel"=>$hotel]);
+    }
     /**
      * Show the form for creating a new resource.
      *
