@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -17,7 +18,17 @@ class CustomerController extends Controller
         $customers = Customer::all();
         return view("customers.all", ["customers"=> $customers]);
     }
-
+    public function bookedCostomers(){
+        $customers = Customer::whereIn("id",Booking::pluck("customer_id"))->get();
+        return view("customers.booked",["customers"=>$customers]);
+    }
+    public function customerForm(){
+        return view("customers.oneform");
+    }
+    public function customerFromEmail(Request $request){
+        $customer = Customer::where("email",$request->email)->first();
+        return view("customers.options", ["customer"=> $customer]);
+    }
     /**
      * Show the form for creating a new resource.
      *

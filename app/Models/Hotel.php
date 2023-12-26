@@ -34,7 +34,7 @@ public function city(){
         return $this->belongsToMany(Customer::class,"hotels_customers");
     }
     public function customersRatedWithRate(){
-        return $this->belongsToMany(Customer::class,"ratings");
+        return $this->belongsToMany(Customer::class,"ratings")->withPivot("rate");
     }
     public function bookCustomers(){
         return $this->belongsToMany(Customer::class,"bookings")->withPivot("book_date");
