@@ -311,6 +311,7 @@ return [
             'can'  => 'manage-blog',
         ],
         // do the link here just copy the arrays and past again and cahnge text and url to what u want
+        //----------------------Customer Pages--------------------------------//
         [
             'text'        => 'customers',
             'url'         => 'customers/all',
@@ -325,6 +326,22 @@ return [
             'label'       => 4,
             'label_color' => 'success',
         ],
+        //-----------------------end of Customer Pages------------------------//
+        [
+            'text'        => 'ratings',
+            'url'         => 'ratings/all',
+            'icon'        => 'far fa-fw fa-file',
+            'label'       => 4,
+            'label_color' => 'success',
+        ],
+        [
+            'text'        => 'reserved',
+            'url'         => 'reserved/all',
+            'icon'        => 'far fa-fw fa-file',
+            'label'       => 4,
+            'label_color' => 'success',
+        ],
+        //-----------------------end of Ratings And Reserved Pages-------------//
         ['header' => 'account_settings'],
         [
             'text' => 'profile',

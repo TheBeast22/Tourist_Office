@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rating;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 class RatingController extends Controller
@@ -14,7 +15,9 @@ class RatingController extends Controller
      */
     public function index()
     {
-        //
+        $ratings = Rating::all();
+        $customers = Customer::whereIn("id",Rating::pluck("customer_id")->toArray())->get();
+        return view("ratings.all", ["customers"=> $customers,"ratings"=> $ratings]);
     }
 
     /**
@@ -22,9 +25,13 @@ class RatingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $rating = Rating::where("customer_id",$request->customer_id)->where("hotel_id",$request->hotel_id)->first();
+        if($rating)
+         return redirect()->to(route("edit_rating",["rating"=>$rating]));
+    
+        return view("ratings.add",["request"=> $request]);
     }
 
     /**
@@ -35,20 +42,9 @@ class RatingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Rating::create(["customer_id"=>$request->customer_id,"hotel_id"=>$request->hotel_id,"rate"=>$request->rate]);
+        return redirect()->to(route("all_ratings"));
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Rating  $rating
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Rating $rating)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -57,7 +53,7 @@ class RatingController extends Controller
      */
     public function edit(Rating $rating)
     {
-        //
+        return view("ratings.edit", ["rating"=>$rating]);
     }
 
     /**
@@ -69,17 +65,8 @@ class RatingController extends Controller
      */
     public function update(Request $request, Rating $rating)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Rating  $rating
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Rating $rating)
-    {
-        //
+        $rating->rate = $request->rate;
+        $rating->save();
+        return redirect()->to(route("all_ratings"));
     }
 }
