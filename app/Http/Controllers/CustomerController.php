@@ -14,7 +14,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::all();
+        return view("customers.all", ["customers"=> $customers]);
     }
 
     /**
@@ -24,7 +25,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return view("customers.add");
     }
 
     /**
@@ -35,10 +36,10 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Customer::create(["name"=>$request->name,"mobile"=>$request->mobile,"gender"=>$request->gender,"email"=>$request->email]);
+        return redirect()->to(route("all_customers"));
     }
-
-    /**
+   /**
      * Display the specified resource.
      *
      * @param  \App\Models\Customer  $customer
@@ -46,9 +47,8 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        return view("customers.one", ["customer"=> $customer]);
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -57,7 +57,7 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        //
+        return view("customers.edit", ["customer"=> $customer]);
     }
 
     /**
@@ -69,7 +69,12 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        //
+        $customer->name = $request->name;
+        $customer->mobile = $request->mobile;
+        $customer->gender = $request->gender;
+        $customer->email = $request->email;
+        $customer->save();
+        return redirect()->to(route("all_customers"));
     }
 
     /**
@@ -80,6 +85,7 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+        return redirect()->back();
     }
 }
