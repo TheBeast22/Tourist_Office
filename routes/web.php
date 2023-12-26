@@ -16,8 +16,13 @@ use App\http\Controllers\CompanyController;
 Route::get("/", function () {
     return view('welcome');
 });
- Route::get('Company/Companyinfo/{id}', [CompanyController::class,"Companyinfo"]);
+//  Route::get('Company/Companyinfo/{id}', [CompanyController::class,"Companyinfo"]);
 
-Route::post('Company/Companyinfo/{id}', [CompanyController::class,"Companyinfo"])->name('Companyinfo');
+// Route::post('Company/Companyinfo/{id}', [CompanyController::class,"Companyinfo"])->name('Companyinfo');
+
+//Route::delete('Company/{id}',[CompanyController::class, 'destroy'])->name("destroy") ;
+Route::delete('/company/delete/{id}',[CompanyController::class, 'destroy']);
+
+
 Auth::routes();
 Route::get("home", [App\Http\Controllers\HomeController::class, "index"])->name("home")->middleware("auth");
