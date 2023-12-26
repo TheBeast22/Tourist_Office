@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customers_Hotel;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 class CustomersHotelController extends Controller
@@ -14,17 +15,8 @@ class CustomersHotelController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $customers = Customer::whereIn("id",Customers_Hotel::pluck("customer_id")->toArray())->get();
+        return view("reserves.all", ["customers"=>$customers]);
     }
 
     /**
@@ -35,51 +27,7 @@ class CustomersHotelController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Customers_Hotel  $customers_Hotel
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Customers_Hotel $customers_Hotel)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Customers_Hotel  $customers_Hotel
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Customers_Hotel $customers_Hotel)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Customers_Hotel  $customers_Hotel
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Customers_Hotel $customers_Hotel)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Customers_Hotel  $customers_Hotel
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Customers_Hotel $customers_Hotel)
-    {
-        //
+        Customers_Hotel::create(["customer_id"=>$request->customer_id,"hotel_id"=>$request->hotel_id]);
+        return redirect()->to(route("reserved/all"));
     }
 }

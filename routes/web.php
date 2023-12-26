@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\RatingController;
+use App\Http\Controllers\CustomersHotelController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -27,3 +29,10 @@ Route::get("customer/one/{customer}",[CustomerController::class,"show"])->name("
 Route::post("customer/update/{customer}",[CustomerController::class,"update"])->name("update_customer")->middleware("auth");
 Route::post("customer/add",[CustomerController::class,"store"])->name("add_customer")->middleware("auth");
 //--------------------------------End of Customer Routes----------------------------------------------------------//
+Route::get("ratings/all",[RatingController::class,"index"])->name("all_ratings")->middleware("auth");
+Route::get("rating/edit/{rating}",[RatingController::class,"edit"])->name("edit_rating")->middleware("auth");
+Route::get("reserved/all",[CustomersHotelController::class,"index"])->name("all_reserved")->middleware("auth");
+Route::get("rating/add/form/{customer_id}/{hotel_id}",[RatingController::class,"create"])->name("rating_form")->middleware("auth");
+Route::post("rating/update/{rating}",[RatingController::class,"update"])->name("update_rating")->middleware("auth");
+Route::post("rating/add",[RatingController::class,"store"])->name("add_rating")->middleware("auth");
+//--------------------------------End of Ratings and Reserved Routes----------------------------------------------//
