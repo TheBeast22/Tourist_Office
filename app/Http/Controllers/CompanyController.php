@@ -16,12 +16,8 @@ class CompanyController extends Controller
     public function index()
     {
 
-        $company= $this->model->getCompanies();
-            foreach($company as $one)
-            {
-                echo json_encode($one);
-
-            }
+        if($request->isMethod('post')){
+            $company->index($request->all());}
     }
 
     /**
@@ -89,11 +85,11 @@ class CompanyController extends Controller
     {
         //
     }
-    public function info(Request $request,$id)
+    public function Companyinfo($id,Request $request)
     {
         $company = Company::find($id);
-        if($request->isMethod('get')){
-          $company->push($request->all());
+        if($request->isMethod('post')){
+          $company->update($request->all());
             return redirect()->back();
 
 

@@ -16,8 +16,8 @@ use App\http\Controllers\CompanyController;
 Route::get("/", function () {
     return view('welcome');
 });
-// Route::get('Company/info/{id}', [CompanyController::class,"info"]);
+ Route::get('Company/Companyinfo/{id}', [CompanyController::class,"Companyinfo"]);
 
-Route::get('Company/info/{id}', [CompanyController::class,"info"])->name('Company');
+Route::post('Company/Companyinfo/{id}', [CompanyController::class,"Companyinfo"])->name('Companyinfo');
 Auth::routes();
 Route::get("home", [App\Http\Controllers\HomeController::class, "index"])->name("home")->middleware("auth");
