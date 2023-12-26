@@ -1,5 +1,4 @@
 <?php
-
 return [
 
     /*
@@ -301,7 +300,7 @@ return [
             'topnav_right' => true,
         ],
 
-        // Sidebar items:
+        // Sidebar items
         [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
@@ -311,9 +310,17 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
+        // do the link here just copy the arrays and past again and cahnge text and url to what u want
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
+            'text'        => 'customers',
+            'url'         => 'customers/all',
+            'icon'        => 'far fa-fw fa-file',
+            'label'       => 4,
+            'label_color' => 'success',
+        ],
+        [
+            'text'        => 'add customer',
+            'url'         => 'customer/add/form',
             'icon'        => 'far fa-fw fa-file',
             'label'       => 4,
             'label_color' => 'success',
