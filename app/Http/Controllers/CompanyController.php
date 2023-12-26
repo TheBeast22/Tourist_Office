@@ -25,7 +25,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return view('AddCompany.php');
     }
 
     /**
@@ -81,42 +81,10 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        // $company = Company::find($request->id);
-
-        // if ($request->isMethod('delete') ||$company === null) {
-        //     return response(
-        //         "company with id {$request->id} not found",
-        //         Response::HTTP_NOT_FOUND
-        //     );
-        // }
-
-        // if ($company->delete() === false) {
-        //     return response(
-        //         "Couldn't delete the company with id {$request->id}",
-        //         Response::HTTP_BAD_REQUEST
-        //     );
-        // }
-
-        // return response(["id" => $request->id, "deleted" => true], Response::HTTP_OK);
-
-            $company->delete();
-
-            return redirect('/companys');
+        $company->delete();
+        return redirect()->back();
         }
 
 
-    // public function Companyinfo($id,Request $request)
-    // {
-    //     $company = Company::find($id);
-    //     if($request->isMethod('post')){
-    //       $company->update($request->all());
-    //         return redirect()->back();
 
-
-
-
-    //     }else{
-    //         return view('Company',['Company'=>$company]);
-    //     }
-    // }
 }

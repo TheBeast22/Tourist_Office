@@ -21,7 +21,9 @@ Route::get("/", function () {
 // Route::post('Company/Companyinfo/{id}', [CompanyController::class,"Companyinfo"])->name('Companyinfo');
 
 //Route::delete('Company/{id}',[CompanyController::class, 'destroy'])->name("destroy") ;
-Route::delete('/company/delete/{id}',[CompanyController::class, 'destroy']);
+Route::get('/add_company',[CompanyController::class, 'create']);
+
+Route::post('/add_company',[CompanyController::class, 'create']);
 
 
 Auth::routes();
