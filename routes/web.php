@@ -19,7 +19,7 @@ Route::get("/", function () {
     return view('welcome');
 });
 Auth::routes();
-Route::get("home", [App\Http\Controllers\HomeController::class, "index"])->name("home")->middleware("auth");
+Route::get("home",  [App\Http\Controllers\TicketController::class,'filter'])->name("home")->middleware("auth");
 //--------------------------------------Customer Routes------------------------------------------------------------//
 Route::get("customers/all",[CustomerController::class,"index"])->name("all_customers")->middleware("auth");
 Route::get("customer/edit/{customer}",[CustomerController::class,"edit"])->name("edit_customer")->middleware("auth");
@@ -43,3 +43,16 @@ Route::post("rating/hotel",[RatingController::class,"hotelRatings"])->name("hote
 Route::post("rating/update/{rating}",[RatingController::class,"update"])->name("update_rating")->middleware("auth");
 Route::post("rating/add",[RatingController::class,"store"])->name("add_rating")->middleware("auth");
 //--------------------------------End of Ratings and Reserved Routes----------------------------------------------//
+Route::get("/booksview", [App\Http\Controllers\BookingController::class,'index'])->name('books')->middleware("auth");
+Route::get("/add/book/{id}", [App\Http\Controllers\BookingController::class,'create'])->name('add-book')->middleware('auth');
+Route::post("/create/book/{id}", [App\Http\Controllers\BookingController::class,'store'])->name('create-book')->middleware("auth");;
+Route::get("/bookedit/{booking}", [App\Http\Controllers\BookingController::class,'edit'])->name ('edit')->middleware("auth");;
+Route::post("/update/book/{booking}", [App\Http\Controllers\BookingController::class,'update'])->name('update-book')->middleware("auth");;
+Route::post("/bookfilter", [App\Http\Controllers\BookingController::class,'filterbooking'])->name('filter-book')->middleware("auth");;
+Route::get("/delete/book/{booking}", [App\Http\Controllers\BookingController::class,'delete'])->name('delete')->middleware("auth");;
+
+Route::get("/tickview", [App\Http\Controllers\TicketController::class,'filter'])->name('tickets')->middleware("auth");;
+Route::post("/filter/ticket", [App\Http\Controllers\TicketController::class,'show'])->name('filtered-ticket')->middleware("auth");;
+Route::get("ticket/addticket", [App\Http\Controllers\TicketController::class,'add'])->name('add-ticket')->middleware("auth");;
+Route::post("/create/ticket", [App\Http\Controllers\TicketController::class,'store'])->name('create-ticket')->middleware("auth");;
+Route::get("/delete/ticket{ticket}", [App\Http\Controllers\TicketController::class,'destroy'])->name('delete-ticket')->middleware("auth");;

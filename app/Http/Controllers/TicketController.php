@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
+use App\Models\City;
+use App\Models\Company;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 class TicketController extends Controller
 {
     /**
@@ -12,9 +14,10 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function filter()
+    {   $ticket=Ticket::all();
+        $city=City::all();
+        return view('home',['ticket'=>$ticket,'city'=>$city]);
     }
 
     /**
@@ -22,6 +25,27 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function show(Request $request)
+     {   if($request->IsMethod("post"))
+        {  $validate=Validator::make($request->all(),[
+           'date'=>'date|after_or_equal:now'
+           ]);  
+           if($validate->fails()){
+   
+            return $validate->errors();
+  
+          }else{ 
+          
+          $date_s=$request->date;
+          echo $date_s;
+         $city_id=$request->city;
+        $ticket=Ticket::where('city_id',$city_id)->where('date_s',$date_s)->get();
+        $city=City::all();
+        return view('home',['ticket'=>$ticket,'city'=>$city]);
+     }}}
+
+
     public function create()
     {
         //
@@ -33,9 +57,45 @@ class TicketController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function add(){
+        $city=City::all();
+        $company=Company::all();
+        return view('ticket/addticket',['company'=>$company,'city'=>$city]);
+
+
+
+
+    }
+    public function destroy(Ticket $ticket){
+
+      $ticket->delete;
+      return redirect()->to(route('home'));
+     
+    }
     public function store(Request $request)
     {
-        //
+        if($request->IsMethod("post"))
+        { 
+
+            $validtate=Validator::make($request->all(),[
+                'date_s'=>'date|required|after_or_equal:now',
+                'date_e'=>'date|required|after_or_equal:date_s'
+                
+                
+                ]);
+                
+                if($validtate->fails()){
+                echo $validtate->errors();
+                 }
+                else{ Ticket::create(
+                    ['company_id'=>$request->company,
+                    'city_id'=>$request->city,
+                    'date_s'=>$request->date_s,
+                    'date_e'=>$request->date_e ]);
+                     echo json_encode(['status'=>'Add Ticket']);
+        }
+                
+                
     }
 
     /**
@@ -44,10 +104,7 @@ class TicketController extends Controller
      * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function show(Ticket $ticket)
-    {
-        //
-    }
+  
 
     /**
      * Show the form for editing the specified resource.
@@ -55,10 +112,7 @@ class TicketController extends Controller
      * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function edit(Ticket $ticket)
-    {
-        //
-    }
+    
 
     /**
      * Update the specified resource in storage.
@@ -67,10 +121,7 @@ class TicketController extends Controller
      * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ticket $ticket)
-    {
-        //
-    }
+  
 
     /**
      * Remove the specified resource from storage.
@@ -78,8 +129,6 @@ class TicketController extends Controller
      * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ticket $ticket)
-    {
-        //
-    }
+  
+}
 }

@@ -370,24 +370,24 @@ return [
             'label_color' => 'success',
         ],
         //-----------------------end of Ratings And Reserved Pages-------------//
-        ['header' => 'account_settings'],
+        ['header' => 'Tickets'],
         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
+            'text' => 'Availble tickets',
+            'url'  => '/tickview',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
+            'text' => 'New ticket',
+            'url'  => 'ticket/addticket',
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
-            'text'    => 'multilevel',
+            'text'    => 'Bookings',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Booking List', 
+                     'url'  => '/booksview',
                 ],
                 [
                     'text'    => 'level_one',
