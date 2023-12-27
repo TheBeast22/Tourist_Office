@@ -15,13 +15,13 @@ class City extends Model
         "name"=> "string",
         "country"=> "string",
     ];
-    public function hotels(){
+    public function hotels() : object{
         return $this->hasMany(Hotel::class);
     }
-    public function tickets(){
+    public function tickets() : object{
         return $this->hasMany(Ticket::class);
     }
-    public function makingCompanies(){
+    public function makingCompanies() : object{
         return $this->belogsToMany(Company::class,"tickets")->withPivot(["date_s","date_e"]);
     }
 }

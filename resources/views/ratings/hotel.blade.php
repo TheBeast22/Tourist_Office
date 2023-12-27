@@ -10,7 +10,7 @@
   <h4>{{$hotel->name}} rated by: </h4>
   @foreach(($hotel->customersRatedWithRate) as $customer)
   <ul>
-    <li>{{$customer->name}} -> {{$customer->pivot->rate}}</li>
+    <li>{{$customer->name}} -> {{$customer->pivot->rate}}, comment: {{$customer->pivot->comment}}</li>
   </ul>
   @endforeach
 </ul>

@@ -17,22 +17,22 @@ class Customer extends Model
         "gender"=> "string",
         "email"=> "string"
     ];
-    public function tikets(){
+    public function tikets() : object{
         return $this->belongsToMany(Ticket::class,"bookings")->withPivot("book_date");
     }
-    public function bookhotels(){
+    public function bookhotels() : object{
         return $this->belongsToMany(Hotel::class,"bookings")->withPivot("book_date");
     }
-    public function hotelsRatingWithRatedHotels(){
-        return $this->belongsToMany(Hotel::class,"ratings")->withPivot("rate");
+    public function hotelsRatingWithRatedHotels() : object{
+        return $this->belongsToMany(Hotel::class,"ratings")->withPivot(["rate","comment"]);
     }
-    public function ratings(){
+    public function ratings() : object{
         return $this->hasMany(Rating::class);
     }
-    public function reservedHotels(){
+    public function reservedHotels() : object{
         return $this->belongsToMany(Hotel::class,"customers_hotels");
     }
-    public function bookings(){
+    public function bookings() : object{
         return $this->hasMany(Booking::class);
     }
 }

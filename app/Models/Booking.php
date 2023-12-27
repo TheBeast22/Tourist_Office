@@ -23,21 +23,21 @@ class Booking extends Model
         "hotel_id"=> "integer",
         "book_date"=> "date"
     ];
-    public function ticket(){
+    public function ticket() : object{
 
      return $this->belongsTo(Ticket::class);
 
 
 
     }
-    public function customer(){
+    public function customer() : object{
 
         return $this->belongsTo(Customer::class);
    
    
    
        }
-       public function hotel(){
+       public function hotel() : object{
 
         return $this->belongsTo(Hotel::class);
    

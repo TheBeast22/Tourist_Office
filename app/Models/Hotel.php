@@ -14,32 +14,32 @@ class Hotel extends Model
         "city_id"=>"integer"
     ];
 
-public function city(){
+public function city() : object{
     return $this->belongsTo(City::class);
 }
 
 
 
-    public function bookings(){
+    public function bookings() : object{
     return $this->hasMany(Booking::class);
     }
 
 
-    public function ratings(){
+    public function ratings() : object{
         return $this->hasMany(Rating::class);
     }
      
 
-    public function customersReserved(){
+    public function customersReserved() : object{
         return $this->belongsToMany(Customer::class,"hotels_customers");
     }
-    public function customersRatedWithRate(){
-        return $this->belongsToMany(Customer::class,"ratings")->withPivot("rate");
+    public function customersRatedWithRate() : object {
+        return $this->belongsToMany(Customer::class,"ratings")->withPivot(["rate","comment"]);
     }
-    public function bookCustomers(){
+    public function bookCustomers() : object{
         return $this->belongsToMany(Customer::class,"bookings")->withPivot("book_date");
     }
-    public function bookTickets(){
+    public function bookTickets() : object{
         return $this->belongsToMany(Ticket::class,"bookings")->withPivot("book_date");
     }
     

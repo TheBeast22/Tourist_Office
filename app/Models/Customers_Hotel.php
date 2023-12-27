@@ -16,10 +16,10 @@ class Customers_Hotel extends Model
         "customer_id"=> "integer",
         "hotel_id"=> "integer"
     ];
-    public function customer(){
+    public function customer() : object{
         return $this->belongsTo(Customer::class);
     }
-    public function hotel(){
+    public function hotel() : object{
         return $this->belongsTo(Hotel::class);
     }
 }

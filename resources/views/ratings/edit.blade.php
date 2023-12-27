@@ -10,6 +10,7 @@
 <form method="post" action='{{route("update_rating",["rating"=>$rating])}}'>
     {{csrf_field()}}
     <input type="number" value="{{$rating->rate}}" min="0" max="5" name="rate">
+    <input type="text" value="{{$rating->comment}}" name="comment">
     <button type="submit">update rate</button>
 </form>
 @stop

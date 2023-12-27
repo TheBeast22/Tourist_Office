@@ -6,7 +6,7 @@ use App\Models\Rating;
 use App\Models\Customer;
 use App\Models\Hotel;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 class RatingController extends Controller
 {
     /**
@@ -57,7 +57,15 @@ class RatingController extends Controller
      */
     public function store(Request $request)
     {
-        Rating::create(["customer_id"=>$request->customer_id,"hotel_id"=>$request->hotel_id,"rate"=>$request->rate]);
+        $validate = Validator::make($request->all(),[
+            "customer_id"=>"required|integer|exists:customers,id",
+            "hotel_id"=>"required|integer|exists:hotels,id",
+            "rate"=>"required|integer|min:0|max:5",
+            "comment"=>"nullable|string|min:0|max:255"
+        ]);
+        if($validate->fails())
+         die($validate->errors());
+        Rating::create(["customer_id"=>$request->customer_id,"hotel_id"=>$request->hotel_id,"rate"=>$request->rate,"comment"=>$request->comment]);
         return redirect()->to(route("all_ratings"));
     }
     /**
@@ -80,7 +88,17 @@ class RatingController extends Controller
      */
     public function update(Request $request, Rating $rating)
     {
+        $validate = Validator::make(["id"=>$rating->id,"customer_id"=>$rating->customer_id,"hotel_id"=>$rating->hotel_id,"rate"=>$request->rate,"comment"=>$request->comment],[
+            "id"=>"required|integer|exists:ratings,id",
+            "customer_id"=>"required|integer|exists:customers,id",
+            "hotel_id"=>"required|integer|exists:hotels,id",
+            "rate"=>"required|integer|min:0|max:5",
+            "comment"=>"nullable|string|min:0|max:255"
+        ]);
+        if($validate->fails())
+         die($validate->errors());
         $rating->rate = $request->rate;
+        $rating->comment = $request->comment;
         $rating->save();
         return redirect()->to(route("all_ratings"));
     }

@@ -12,7 +12,7 @@
   <li>{{$hotel->name}} rated by: </li>
   @foreach(($hotel->customersRatedWithRate) as $customer)
   <ul>
-    <li>{{$customer->name}} -> {{$customer->pivot->rate}}</li>
+    <li>{{$customer->name}} -> {{$customer->pivot->rate}}, comment: {{$customer->pivot->comment}}</li>
   </ul>
   @endforeach
 @endforeach
