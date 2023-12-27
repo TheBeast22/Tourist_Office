@@ -17,10 +17,10 @@ class Company extends Model
         "phone"=> "string",
     ];
 
-    public function tickets(){
+    public function tickets() : object{
         return $this->hasMany(Ticket::class);
     }
-    public function toCities(){
+    public function toCities() : object{
        return $this->belongsToMany(City::class,"tickets")->withPivot(["date_s","date_e"]);
     }
 }

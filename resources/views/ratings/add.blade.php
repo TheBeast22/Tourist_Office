@@ -12,6 +12,7 @@
     <input type="hidden" value="{{$request->customer_id}}" name="customer_id">
     <input type="hidden" value="{{$request->hotel_id}}" name="hotel_id"> 
     <input type="number" min="0" max="5" name="rate">
+    <input type="text" name="comment">
     <button type="submit">add rate</button>
 </form>
 @stop

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\Booking;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 class CustomerController extends Controller
 {
     /**
@@ -47,6 +47,15 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+        $message = ["gender.in" => "The Gender Must Be (male or fmale)"];
+        $validate = Validator::make($request->all(), [
+            "email"=> "required|email|max:20|unique:customers,email|ends_with:yahoo.com,hotmail.com,gmail.com",
+            "mobile"=>"required|string|unique:customers,mobile|regex:/^(09)[0-9]{7}[1-9]$/",
+            "name"=>"required|string|min:3|max:20|regex:/^[A-Za-z]+$/",
+            "gender"=>"required|string|in:male,fmale"
+        ],$message);
+        if($validate->fails())
+            die($validate->errors());
         Customer::create(["name"=>$request->name,"mobile"=>$request->mobile,"gender"=>$request->gender,"email"=>$request->email]);
         return redirect()->to(route("all_customers"));
     }
@@ -80,6 +89,16 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
+        $message = ["gender.in" => "The Gender Must Be (male or fmale)","id.not_in"=>"The Customer has booking"];
+        $validate = Validator::make(["id"=>$customer->id,"email"=>$request->email,"mobile"=>$request->mobile,"name"=>$request->name,"gender"=>$request->gender], [
+            "id"=>"required|integer|exists:customers,id|not_in:" . implode(',',Booking::pluck("customer_id")->toArray()),
+            "email"=> "required|email|max:20|unique:customers,email,$customer->id|ends_with:yahoo.com,hotmail.com,gmail.com",
+            "mobile"=>"required|string|unique:customers,mobile,$customer->id|regex:/^(09)[0-9]{7}[1-9]$/",
+            "name"=>"required|string|min:3|max:20|regex:/^[A-Za-z]+$/",
+            "gender"=>"required|string|in:male,fmale"
+        ],$message);
+        if($validate->fails())
+            die($validate->errors());
         $customer->name = $request->name;
         $customer->mobile = $request->mobile;
         $customer->gender = $request->gender;
@@ -96,6 +115,11 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
+        $validate = Validator::make(["id" => $customer->id],[
+            "id"=>"required|integer|exists:customers,id|not_in:" . implode(',',Booking::pluck("customer_id")->toArray())
+        ],["id.not_in"=>"the customer has booking"]);
+        if($validate->fails())
+         die($validate->errors());
         $customer->delete();
         return redirect()->back();
     }

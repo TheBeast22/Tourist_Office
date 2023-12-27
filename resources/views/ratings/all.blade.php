@@ -15,7 +15,7 @@ $i = 0;
   <li>{{$customer->name}} rated: </li>
   @foreach(($customer->hotelsRatingWithRatedHotels) as $hotel)
   <ul>
-    <li>{{$hotel->name}} -> {{$hotel->pivot->rate}} <a href='{{route("edit_rating",["rating"=>$ratings[$i++]])}}'>edit</a></li>
+    <li>{{$hotel->name}} -> {{$hotel->pivot->rate}}, comment: {{$hotel->pivot->comment}} <a href='{{route("edit_rating",["rating"=>$ratings[$i++]])}}'>edit</a></li>
   </ul>
   @endforeach
 @endforeach

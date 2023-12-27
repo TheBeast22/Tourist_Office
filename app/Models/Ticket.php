@@ -20,21 +20,21 @@ class Ticket extends Model
         "date_e"=> "date"
     ];
 
-public function company(){
+public function company() : object{
 
  return $this->belongsTo(Company::class);
 }
-public function city(){
+public function city() : object{
     
  return $this->belongsTo(City::class);
 }
-public function customers(){
+public function customers() : object{
     return $this->belongsToMany(Customer::class,"bookings")->withPivot("book_date");
 }
-public function hotels(){
+public function hotels() : object{
     return $this->belongsToMany(Hotel::class,"bookings")->withPivot("book_date");
 }
-public function bookings(){
+public function bookings() : object{
     return $this->hasMany(Booking::class);
 }
 }
