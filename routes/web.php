@@ -16,20 +16,9 @@ use App\http\Controllers\CompanyController;
 Route::get("/", function () {
     return view('welcome');
 });
-//  Route::get('Company/Companyinfo/{id}', [CompanyController::class,"Companyinfo"]);
-
-// Route::post('Company/Companyinfo/{id}', [CompanyController::class,"Companyinfo"])->name('Companyinfo');
-
-//Route::delete('Company/{id}',[CompanyController::class, 'destroy'])->name("destroy") ;
-// Route::get('/add_company',[CompanyController::class, 'create']);
-
-// Route::post('/add_company',[CompanyController::class, 'store']);
-
-
-// Route::get('delete-records','StudDeleteController@index');
-// Route::get('delete/{id}','StudDeleteController@destroy');
-
-
+//==============================================================
+//                  Routes For Company
+//==============================================================
 Route::get('/index', [CompanyController::class, 'index'])->name('Company.index');
 // returns the form for adding a post
 Route::get('/Company/create',[CompanyController::class, 'create'])->name('Company.create');
@@ -44,6 +33,7 @@ Route::put('/Company/{company}',[CompanyController::class, 'update'])->name('Com
 // deletes the company
 Route::delete('/Company/{company}',[CompanyController::class, 'destroy'])->name('Company.destroy');
 
+//==============================================================
 
 Auth::routes();
 Route::get("home", [App\Http\Controllers\HomeController::class, "index"])->name("home")->middleware("auth");
