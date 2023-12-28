@@ -1,0 +1,1 @@
+resources/views/company/show.blade.php
