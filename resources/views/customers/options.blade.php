@@ -7,11 +7,15 @@
 @stop
 
 @section('content')
-<b>{{$customer->name}}</b>
+<ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{$customer->name}}
         <a href='{{route("one_customer",["customer"=>$customer])}}'>Info</a>
         <a href='{{route("edit_customer",["customer"=>$customer])}}'>edit</a>
         <a href='{{route("customer_ratings",["customer"=>$customer])}}'>ratings</a>
         <a href='{{route("delete_customer",["customer"=>$customer])}}'>delete</a>
+  </li>
+</ul>
 @stop
 
 @section('css')

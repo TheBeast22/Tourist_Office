@@ -10,12 +10,12 @@
 @php
 $i = 0;
 @endphp
-<ul>
+<ul class="list-group">
 @foreach($customers as $customer)
-  <li>{{$customer->name}} rated: </li>
+<li class="list-group-item d-flex justify-content-between align-items-center">{{$customer->name}} rated: </li>
   @foreach(($customer->hotelsRatingWithRatedHotels) as $hotel)
-  <ul>
-    <li>{{$hotel->name}} -> {{$hotel->pivot->rate}}, comment: {{$hotel->pivot->comment}} <a href='{{route("edit_rating",["rating"=>$ratings[$i++]])}}'>edit</a></li>
+  <ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center">{{$hotel->name}} -> {{$hotel->pivot->rate}}, comment: {{$hotel->pivot->comment}} <a href='{{route("edit_rating",["rating"=>$ratings[$i++]])}}'>edit</a></li>
   </ul>
   @endforeach
 @endforeach

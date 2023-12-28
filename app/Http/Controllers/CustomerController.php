@@ -20,6 +20,8 @@ class CustomerController extends Controller
     }
     public function bookedCostomers(){
         $customers = Customer::whereIn("id",Booking::pluck("customer_id"))->get();
+        if(empty($customers[0]))
+         return redirect()->to(route("errors",["message"=>"some data not found"]));
         return view("customers.booked",["customers"=>$customers]);
     }
     public function customerForm(){
@@ -27,6 +29,8 @@ class CustomerController extends Controller
     }
     public function customerFromEmail(Request $request){
         $customer = Customer::where("email",$request->email)->first();
+        if(empty($customer))
+         return redirect()->to(route("errors",["message"=>"some data not found"]));
         return view("customers.options", ["customer"=> $customer]);
     }
     /**
@@ -50,12 +54,12 @@ class CustomerController extends Controller
         $message = ["gender.in" => "The Gender Must Be (male or fmale)"];
         $validate = Validator::make($request->all(), [
             "email"=> "required|email|max:20|unique:customers,email|ends_with:yahoo.com,hotmail.com,gmail.com",
-            "mobile"=>"required|string|unique:customers,mobile|regex:/^(09)[0-9]{7}[1-9]$/",
+            "mobile"=>"required|string|unique:customers,mobile|regex:/^(09)[0-9]{8}$/",
             "name"=>"required|string|min:3|max:20|regex:/^[A-Za-z]+$/",
             "gender"=>"required|string|in:male,fmale"
         ],$message);
         if($validate->fails())
-            die($validate->errors());
+         return redirect()->to(route("errors",["message"=> $validate->errors()->first()]));
         Customer::create(["name"=>$request->name,"mobile"=>$request->mobile,"gender"=>$request->gender,"email"=>$request->email]);
         return redirect()->to(route("all_customers"));
     }
@@ -93,12 +97,12 @@ class CustomerController extends Controller
         $validate = Validator::make(["id"=>$customer->id,"email"=>$request->email,"mobile"=>$request->mobile,"name"=>$request->name,"gender"=>$request->gender], [
             "id"=>"required|integer|exists:customers,id|not_in:" . implode(',',Booking::pluck("customer_id")->toArray()),
             "email"=> "required|email|max:20|unique:customers,email,$customer->id|ends_with:yahoo.com,hotmail.com,gmail.com",
-            "mobile"=>"required|string|unique:customers,mobile,$customer->id|regex:/^(09)[0-9]{7}[1-9]$/",
+            "mobile"=>"required|string|unique:customers,mobile,$customer->id|regex:/^(09)[0-9]{8}$/",
             "name"=>"required|string|min:3|max:20|regex:/^[A-Za-z]+$/",
             "gender"=>"required|string|in:male,fmale"
         ],$message);
         if($validate->fails())
-            die($validate->errors());
+         return redirect()->to(route("errors",["message"=> $validate->errors()->first()]));
         $customer->name = $request->name;
         $customer->mobile = $request->mobile;
         $customer->gender = $request->gender;
@@ -119,7 +123,7 @@ class CustomerController extends Controller
             "id"=>"required|integer|exists:customers,id|not_in:" . implode(',',Booking::pluck("customer_id")->toArray())
         ],["id.not_in"=>"the customer has booking"]);
         if($validate->fails())
-         die($validate->errors());
+         return redirect()->to(route("errors",["message"=> $validate->errors()->first()]));
         $customer->delete();
         return redirect()->back();
     }

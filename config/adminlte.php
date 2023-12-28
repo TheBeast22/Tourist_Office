@@ -312,62 +312,48 @@ return [
         ],
         // do the link here just copy the arrays and past again and cahnge text and url to what u want
         //----------------------Customer Pages--------------------------------//
+        ['header' => 'customers'],
         [
             'text'        => 'customers',
             'url'         => 'customers/all',
             'icon'        => 'far fa-fw fa-file',
-            'label'       => 1,
-            'label_color' => 'success',
         ],
         [
             'text'        => 'add customer',
             'url'         => 'customer/add/form',
             'icon'        => 'far fa-fw fa-file',
-            'label'       => 1,
-            'label_color' => 'success',
         ],
         [
             'text'        => 'booked customers',
             'url'         => 'customers/booked',
             'icon'        => 'far fa-fw fa-file',
-            'label'       => 1,
-            'label_color' => 'success',
         ],
         [
             'text'        => 'Search Customer',
             'url'         => 'customer/infos',
             'icon'        => 'far fa-fw fa-file',
-            'label'       => 1,
-            'label_color' => 'success',
         ],
         //-----------------------end of Customer Pages------------------------//
+        ['header' => 'ratings'],
         [
             'text'        => 'ratings',
             'url'         => 'ratings/all',
             'icon'        => 'far fa-fw fa-file',
-            'label'       => 1,
-            'label_color' => 'success',
         ],
         [
             'text'        => 'reserved',
             'url'         => 'reserved/all',
             'icon'        => 'far fa-fw fa-file',
-            'label'       => 1,
-            'label_color' => 'success',
         ],
         [
             'text'        => 'Hotels ratings',
             'url'         => 'ratings/all/hotels',
             'icon'        => 'far fa-fw fa-file',
-            'label'       => 1,
-            'label_color' => 'success',
         ],
         [
             'text'        => 'Hotel ratings',
             'url'         => 'rating/hotel/form',
             'icon'        => 'far fa-fw fa-file',
-            'label'       => 1,
-            'label_color' => 'success',
         ],
         //-----------------------end of Ratings And Reserved Pages-------------//
         ['header' => 'Tickets'],

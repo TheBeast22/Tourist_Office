@@ -7,11 +7,11 @@
 @stop
 
 @section('content')
-<ul>
-    <li>name: {{$customer->name}}</li>
-    <li>mobile: {{$customer->mobile}}</li>
-    <li>gender: {{$customer->gender}}</li>
-    <li>email: {{$customer->email}}</li>
+<ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center">name: {{$customer->name}}</li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">mobile: {{$customer->mobile}}</li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">gender: {{$customer->gender}}</li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">email: {{$customer->email}}</li>
 </ul>
 @stop
 

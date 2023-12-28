@@ -21,7 +21,7 @@ class Booking extends Model
         "ticket_id"=> "integer",
         "customer_id"=> "integer",
         "hotel_id"=> "integer",
-        "book_date"=> "date"
+        "book_date"=> "datetime"
     ];
     public function ticket() : object{
 

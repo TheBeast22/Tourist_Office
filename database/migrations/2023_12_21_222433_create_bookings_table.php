@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger("ticket_id");
             $table->unsignedBigInteger("customer_id");
             $table->unsignedBigInteger("hotel_id")->nullable();
-            $table->date("book_date");
+            $table->dateTime("book_date");
             $table->foreign("ticket_id")->references("id")->on("tickets")->onDelete("CASCADE")->onUpdate("CASCADE");
             $table->foreign("customer_id")->references("id")->on("customers");
             $table->foreign("hotel_id")->references("id")->on("hotels")->onDelete("SET NULL");

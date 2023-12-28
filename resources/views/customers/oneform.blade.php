@@ -7,11 +7,14 @@
 @stop
 
 @section('content')
+<center><h1></h1><center><br><br>
 <form method="post" action='{{route("email_customer")}}'>
     {{csrf_field()}}
-    <label>Customer Email:</label>
-    <input type="email" name="email">
-    <button type="submit">search</button>
+    <div class="form-group col-md-4">
+     <label for="exampleFormControlInput1">Email address</label>
+    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="email">
+  </div>
+  <button type="submit" class="btn btn-primary">Search</button>
 </form>
 @stop
 

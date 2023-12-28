@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("company_id");
             $table->unsignedBigInteger("city_id");
-            $table->date("date_s");
-            $table->date("date_e");
+            $table->dateTime("date_s");
+            $table->dateTime("date_e");
             $table->foreign("company_id")->references("id")->on("companies")->onDelete("CASCADE")->onUpdate("CASCADE");
             $table->foreign("city_id")->references("id")->on("cities");
             $table->unique(["company_id","city_id"]);
