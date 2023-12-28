@@ -9,8 +9,8 @@
 @section('content')
   <h4>{{$hotel->name}} rated by: </h4>
   @foreach(($hotel->customersRatedWithRate) as $customer)
-  <ul>
-    <li>{{$customer->name}} -> {{$customer->pivot->rate}}, comment: {{$customer->pivot->comment}}</li>
+  <ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center">{{$customer->name}} -> {{$customer->pivot->rate}}, comment: {{$customer->pivot->comment}}</li>
   </ul>
   @endforeach
 </ul>

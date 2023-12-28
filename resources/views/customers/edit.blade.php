@@ -7,13 +7,29 @@
 @stop
 
 @section('content')
+<center><h1></h1><center><br><br>
 <form method="post" action='{{route("update_customer",["customer"=>$customer])}}'>
-    {{csrf_field()}}
-    <input type="text" value="{{$customer->name}}" name="name">
-    <input type="tel" value="{{$customer->mobile}}" name="mobile">
-    <input type="text" value="{{$customer->gender}}" name="gender">
-    <input type="email" value="{{$customer->email}}" name="email">
-    <button type="submit">update data</button>
+{{csrf_field()}}
+  <div class="form-group col-md-4">
+<label for="name">name:</label>
+<input type="text" id="name" name="name" value="{{$customer->name}}" class="form-control">
+  </div>
+  <div class="form-group col-md-4">
+  <label for="mob">mobile:</label>
+  <input type="tel" id="mob" name="mobile" class="form-control" value="{{$customer->mobile}}">
+  </div>
+  <div class="form-group col-md-4">
+     <label for="exampleFormControlSelect1">Gender</label>
+    <select class="form-control" id="exampleFormControlSelect1" name="gender" value="{{$customer->gender}}">
+      <option>male</option>
+      <option>fmale</option>
+    </select>
+  </div>
+  <div class="form-group col-md-4">
+     <label for="exampleFormControlInput1">Email address</label>
+    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="email" value="{{$customer->email}}">
+  </div>
+  <button type="submit" class="btn btn-primary">Update Customer</button>
 </form>
 @stop
 

@@ -16,8 +16,8 @@ class Ticket extends Model
     protected $casts = [
         "company_id"=> "integer",
         "city_id"=> "integer",
-        "date_s"=> "date",
-        "date_e"=> "date"
+        "date_s"=> "datetime",
+        "date_e"=> "datetime"
     ];
 
 public function company() : object{
