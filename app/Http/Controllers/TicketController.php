@@ -86,7 +86,7 @@ class TicketController extends Controller
         if($request->IsMethod("post"))
         { 
 
-            $validtate=Validator::make($request->all(),[
+            $validate=Validator::make($request->all(),[
                 'company'=>'required|integer|exists:companies,id',
                 'city'=>'required|integer|exists:cities,id',
                 'date_s'=>'date|required|after_or_equal:now',
@@ -95,8 +95,8 @@ class TicketController extends Controller
                 
                 ]);
                 
-                if($validtate->fails()){
-                echo $validtate->errors();
+                if($validate->fails()){
+                echo $validate->errors();
                  }
                 else{  $address_company=Company::find($request->company)->address;
                     $city_name=City::find($request->city)->name;

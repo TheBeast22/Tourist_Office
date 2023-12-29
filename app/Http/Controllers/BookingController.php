@@ -73,8 +73,8 @@ class BookingController extends Controller
         'id'=>'integer|exists:bookings,id'
     
       ]);
-      if($validtate->fails()){
-        echo $validtate->errors();
+      if($validate->fails()){
+        echo $validate->errors();
          }
         else{
         $booking->delete();
