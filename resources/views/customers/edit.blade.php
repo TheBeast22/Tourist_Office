@@ -20,9 +20,9 @@
   </div>
   <div class="form-group col-md-4">
      <label for="exampleFormControlSelect1">Gender</label>
-    <select class="form-control" id="exampleFormControlSelect1" name="gender" value="{{$customer->gender}}">
-      <option>male</option>
-      <option>fmale</option>
+    <select class="form-control" id="exampleFormControlSelect1" name="gender">
+      <option {{$customer->gender == 'male'? "selected" : ""}}>male</option>
+      <option {{$customer->gender == 'fmale'? "selected" : ""}}>fmale</option>
     </select>
   </div>
   <div class="form-group col-md-4">

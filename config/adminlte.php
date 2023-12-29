@@ -324,11 +324,6 @@ return [
             'icon'        => 'far fa-fw fa-file',
         ],
         [
-            'text'        => 'booked customers',
-            'url'         => 'customers/booked',
-            'icon'        => 'far fa-fw fa-file',
-        ],
-        [
             'text'        => 'Search Customer',
             'url'         => 'customer/infos',
             'icon'        => 'far fa-fw fa-file',
@@ -338,11 +333,6 @@ return [
         [
             'text'        => 'ratings',
             'url'         => 'ratings/all',
-            'icon'        => 'far fa-fw fa-file',
-        ],
-        [
-            'text'        => 'reserved',
-            'url'         => 'reserved/all',
             'icon'        => 'far fa-fw fa-file',
         ],
         [
