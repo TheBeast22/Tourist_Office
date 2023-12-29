@@ -67,11 +67,20 @@ class BookingController extends Controller
     }}
     public function delete(Booking $booking){
        
-       
+             
+      $validate=Validator::make(['id'=>$booking->id],[
+            
+        'id'=>'integer|exists:bookings,id'
+    
+      ]);
+      if($validtate->fails()){
+        echo $validtate->errors();
+         }
+        else{
         $booking->delete();
-        echo 'delete';
+        
         return redirect()->to(route('books'));
-    }
+    }}
  
 
     /**
@@ -98,22 +107,28 @@ class BookingController extends Controller
     {   
         if($request->IsMethod("post"))
         {    $validate=Validator::make($request->all(),[
-            'email'=>'required|email|exists:customers,email|max:20|ends_with:yahoo.com,hotmail.com,gmail.com',]);
+            'email'=>'required|email|exists:customers,email|max:20|ends_with:yahoo.com,hotmail.com,gmail.com',
+            'hotel'=>'integer|nullable|exists:hotels,id']);
 
             if($validate->fails()){
    
             return $validate->errors();
    
             }else{
-             $customer_id=Customer::where('email',$request->email)->value('id'); 
-              $tick_id=$id;
-            
-              Ticket::find($tick_id)->customers;
-              Booking::create(['ticket_id'=>$tick_id,
-              'customer_id'=>$customer_id,
-              'hotel_id'=>$request->hotel,
-              'book_date'=>$request->date ]);
-               echo json_encode(['status'=>'created']);
+              $customer_id=Customer::where('email',$request->email)->value('id'); 
+              $custom_tickets=Customer::find($customer_id)->tikets;
+              $exist=false;
+              foreach ($custom_tickets as  $value) {
+              
+               $value->id==$id?$exist=true:$exist;
+              }
+             if ($exist==false) 
+                {Booking::create(['ticket_id'=>$id,
+               'customer_id'=>$customer_id,
+               'hotel_id'=>$request->hotel,
+               'book_date'=>$request->date ]);
+                echo json_encode(['status'=>'created']);}
+              else echo json_encode(['status'=>'customer has already exist']);
        
                  
                
@@ -157,7 +172,14 @@ class BookingController extends Controller
      */
     public function update(Request $request,$id)
     {   
-    
+      $validate=Validator::make($request->all(),[
+        'hotel'=>'integer|nullable|exists:hotels,id']);
+   
+        if($validate->fails()){
+
+        return $validate->errors();
+
+        }else{
        
        $hotel_id=$request->hotel;
        $book= Booking::find($id);
@@ -165,7 +187,7 @@ class BookingController extends Controller
       
        return redirect()->to(route('books'));
     }
-
+  }
     /**
      * Remove the specified resource from storage.
      *

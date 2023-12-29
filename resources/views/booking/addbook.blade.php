@@ -43,7 +43,7 @@
 </select></div>
 <div class="form-group col-md-4">
       <label for="">Date</label>
-      <input type="text" name='date' class="form-control" value="{{date('Y-m-d')}}" readonly >
+      <input type="text" name='date' class="form-control" value="{{date('m/d/Y h:i:s a', time())}}" readonly >
     </div>
 
     <button type="submit" class="btn btn-primary">Save</button>

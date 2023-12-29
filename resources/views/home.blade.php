@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Tourist Web</h1>
+
 @stop
 
 @section('content')
@@ -26,16 +26,15 @@
 </select>
 </div>
 <div class="form-group col-md-4">
-      <label for="">Start Date</label>
+      <label for="">Date Start</label>
       <input type="text" class="form-control" name="date">
     </div>
     <button type="submit" class="btn btn-primary">Filter</button>
 
 </form>
-<br>
-<br><br>
+
  
-<button type="button" class=""><a href="{{route('add-ticket')}}">Add ticket</a></button>
+<button type="button" class="btn btn-warning"><a href="{{route('add-ticket')}}">Add ticket</a></button>
 
 <div class="list-group">
 @foreach($ticket as $value)

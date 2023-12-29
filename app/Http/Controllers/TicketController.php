@@ -29,7 +29,8 @@ class TicketController extends Controller
      public function show(Request $request)
      {   if($request->IsMethod("post"))
         {  $validate=Validator::make($request->all(),[
-           'date'=>'date|after_or_equal:now'
+            'date'=>'required|date|after_or_equal:now|nullable',
+            'city'=>'exists:cities,id'
            ]);  
            if($validate->fails()){
    
@@ -46,10 +47,7 @@ class TicketController extends Controller
      }}}
 
 
-    public function create()
-    {
-        //
-    }
+   
 
     /**
      * Store a newly created resource in storage.
@@ -68,8 +66,19 @@ class TicketController extends Controller
     }
     public function destroy(Ticket $ticket){
 
-      $ticket->delete;
+        $validate=Validator::make(['id'=>$ticket->id],[
+          
+            'id'=>'integer|exists:tickets,id']);
+           
+            if($validate->fails()){
+   
+            return $validate->errors();
+   
+            }else{
+      $ticket->delete();
       return redirect()->to(route('home'));
+     
+    }
      
     }
     public function store(Request $request)
@@ -78,6 +87,8 @@ class TicketController extends Controller
         { 
 
             $validtate=Validator::make($request->all(),[
+                'company'=>'required|integer|exists:companies,id',
+                'city'=>'required|integer|exists:cities,id',
                 'date_s'=>'date|required|after_or_equal:now',
                 'date_e'=>'date|required|after_or_equal:date_s'
                 
@@ -87,12 +98,20 @@ class TicketController extends Controller
                 if($validtate->fails()){
                 echo $validtate->errors();
                  }
-                else{ Ticket::create(
-                    ['company_id'=>$request->company,
-                    'city_id'=>$request->city,
-                    'date_s'=>$request->date_s,
-                    'date_e'=>$request->date_e ]);
-                     echo json_encode(['status'=>'Add Ticket']);
+                else{  $address_company=Company::find($request->company)->address;
+                    $city_name=City::find($request->city)->name;
+                  if( !str_contains($address_company,$city_name)){
+ 
+                            Ticket::create(
+                     ['company_id'=>$request->company,
+                     'city_id'=>$request->city,
+                     'date_s'=>$request->date_s,
+                     'date_e'=>$request->date_e ]);
+                      echo json_encode(['status'=>'Add Ticket']);
+                  }
+                  else{
+                     echo "not allowed to add this ticket";
+                  }
         }
                 
                 

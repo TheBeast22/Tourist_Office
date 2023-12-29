@@ -350,20 +350,30 @@ return [
         [
             'text' => 'Availble tickets',
             'url'  => '/tickview',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'far fa-fw fa-file',
+            'icon_color' => 'green',
         ],
+
         [
             'text' => 'New ticket',
             'url'  => 'ticket/addticket',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'far fa-fw fa-file',
+            'icon_color' => 'yellow',
+        ],
+        ['header' => 'Bookings'],
+        [
+            'text' => 'Booking List',
+            'url'  => '/booksview',
+            'icon' => 'far fa-fw fa-file',
+            'icon_color' => 'red',
         ],
         [
-            'text'    => 'Bookings',
+            'text'    => '',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
                 [
-                    'text' => 'Booking List', 
-                     'url'  => '/booksview',
+                    'text' => '', 
+                     'url'  => '',
                 ],
                 [
                     'text'    => 'level_one',
