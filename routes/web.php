@@ -38,6 +38,7 @@ Route::post("customer/email",[CustomerController::class,"customerFromEmail"])->n
 Route::get("ratings/all",[RatingController::class,"index"])->name("all_ratings")->middleware("auth");
 Route::get("rating/edit/{rating}",[RatingController::class,"edit"])->name("edit_rating")->middleware("auth");
 Route::get("reserved/all",[CustomersHotelController::class,"index"])->name("all_reserved")->middleware("auth");
+Route::get("reserved/one/{customer}",[CustomersHotelController::class,"show"])->name("one_reserved")->middleware("auth");
 Route::get("rating/add/form/{customer_id}/{hotel_id}",[RatingController::class,"create"])->name("rating_form")->middleware("auth");
 Route::get("ratings/all/hotels",[RatingController::class,"allHotelsRatings"])->name("all_hotels_ratings")->middleware("auth");
 Route::get("rating/hotel/form",[RatingController::class,"hotelRatingsForm"])->name("hotel_rating_form")->middleware("auth");

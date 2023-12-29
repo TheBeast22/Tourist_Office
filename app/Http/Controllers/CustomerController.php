@@ -16,13 +16,15 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::all();
+        if(empty($customers[0]))
+          return redirect()->to(route("errors",["message"=>"some data not found"]));
         return view("customers.all", ["customers"=> $customers]);
     }
     public function bookedCostomers(){
         $customers = Customer::whereIn("id",Booking::pluck("customer_id"))->get();
         if(empty($customers[0]))
          return redirect()->to(route("errors",["message"=>"some data not found"]));
-        return view("customers.booked",["customers"=>$customers]);
+        return view("customers.all",["customers"=>$customers]);
     }
     public function customerForm(){
         return view("customers.oneform");
@@ -31,7 +33,7 @@ class CustomerController extends Controller
         $customer = Customer::where("email",$request->email)->first();
         if(empty($customer))
          return redirect()->to(route("errors",["message"=>"some data not found"]));
-        return view("customers.options", ["customer"=> $customer]);
+        return view("customers.one", ["customer"=> $customer]);
     }
     /**
      * Show the form for creating a new resource.
@@ -125,6 +127,6 @@ class CustomerController extends Controller
         if($validate->fails())
          return redirect()->to(route("errors",["message"=> $validate->errors()->first()]));
         $customer->delete();
-        return redirect()->back();
+        return redirect()->to(route("all_customers"));
     }
 }

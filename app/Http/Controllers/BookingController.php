@@ -68,7 +68,7 @@ class BookingController extends Controller
     public function delete(Booking $booking){
        
        
-        $booking->delete;
+        $booking->delete();
         echo 'delete';
         return redirect()->to(route('books'));
     }
