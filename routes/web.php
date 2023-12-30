@@ -39,11 +39,12 @@ Route::get("reserved/all",[CustomersHotelController::class,"index"])->name("all_
 Route::get("reserved/one/{customer}",[CustomersHotelController::class,"show"])->name("one_reserved")->middleware("auth");
 Route::get("rating/add/form/{customer_id}/{hotel_id}",[RatingController::class,"create"])->name("rating_form")->middleware("auth");
 Route::get("ratings/all/hotels",[RatingController::class,"allHotelsRatings"])->name("all_hotels_ratings")->middleware("auth");
-Route::get("rating/hotel/form",[RatingController::class,"hotelRatingsForm"])->name("hotel_rating_form")->middleware("auth");
 Route::get("rating/customer/{customer}",[RatingController::class,"customerRatings"])->name("customer_ratings")->middleware("auth");
-Route::post("rating/hotel",[RatingController::class,"hotelRatings"])->name("hotel_ratings")->middleware("auth");
+Route::get("rating/hotel/{name}",[RatingController::class,"hotelRatings"])->name("hotel_ratings")->middleware("auth");
+Route::get("rating/customer/form/{hotel_id}",[RatingController::class,"emailChoosen"])->name("customer_rating_form")->middleware("auth");
 Route::post("rating/update/{rating}",[RatingController::class,"update"])->name("update_rating")->middleware("auth");
 Route::post("rating/add",[RatingController::class,"store"])->name("add_rating")->middleware("auth");
+Route::post("rating/add/form",[RatingController::class,"create"])->name("post_form")->middleware("auth");
 //--------------------------------End of Ratings and Reserved Routes----------------------------------------------//
 Route::get("/booksview", [App\Http\Controllers\BookingController::class,'index'])->name('books')->middleware("auth");
 Route::get("/add/book/{id}", [App\Http\Controllers\BookingController::class,'create'])->name('add-book')->middleware('auth');
@@ -61,9 +62,11 @@ Route::get("/delete/ticket{ticket}", [App\Http\Controllers\TicketController::cla
 //------------------------------------- Hotel Routes -----------------------------------------------------------------//
 Route::get("/hotelindex", [App\Http\Controllers\HotelController::class,'index'])->name('index_hotel')->middleware("auth");
 Route::get("/hotelcreate/{id}", [App\Http\Controllers\HotelController::class,'create'])->name('create_hotel')->middleware("auth");
+Route::post("/onehotel",[App\Http\Controllers\HotelController::class,"show"])->name("one_hotel")->middleware("auth");
 Route::post("/hotelstore", [App\Http\Controllers\HotelController::class,'store'])->name('store_hotel')->middleware("auth");
 Route::get("/deletehotel{hotel}", [App\Http\Controllers\HotelController::class,'destroy'])->name('delete-hotel')->middleware("auth");
-
+Route::get("/hotel/form",[App\Http\Controllers\HotelController::class,"showForm"])->name("hotel_form")->middleware("auth");
+//-----------------------------------------End Hotels ---------------------------------------------------------------//
 Route::get('/index', [CompanyController::class, 'index'])->name('Company.index')->middleware('auth');
 // returns the form for adding a post
 Route::get('/Company/create',[CompanyController::class, 'create'])->name('Company.create')->middleware('auth');

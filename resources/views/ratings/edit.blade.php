@@ -11,10 +11,12 @@
 <form method="post" action='{{route("update_rating",["rating"=>$rating])}}'>
     {{csrf_field()}}
     <div class="form-group col-md-4">
-    <input type="number" value="{{$rating->rate}}" min="0" max="5" name="rate">
+    <label for="rate">rate:</label>
+    <input type="number" value="{{$rating->rate}}" min="0" max="5" name="rate" id="rate">
     </div>
     <div class="form-group col-md-4">
-    <input type="text" value="{{$rating->comment}}" name="comment">
+     <label for="comment">comment:</label>
+     <textarea id="comment" name="comment" value="{{$rating->comment}}"></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Edit Rate</button>
 </form>

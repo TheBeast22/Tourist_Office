@@ -317,35 +317,21 @@ return [
             'text'        => 'customers',
             'url'         => 'customers/all',
             'icon'        => 'far fa-fw fa-file',
+            'icon_color' => 'red',
         ],
         [
             'text'        => 'add customer',
             'url'         => 'customer/add/form',
             'icon'        => 'far fa-fw fa-file',
+            'icon_color' => 'green',
         ],
         [
             'text'        => 'Search Customer',
             'url'         => 'customer/infos',
             'icon'        => 'far fa-fw fa-file',
+            'icon_color' => 'blue',
         ],
         //-----------------------end of Customer Pages------------------------//
-        ['header' => 'ratings'],
-        [
-            'text'        => 'ratings',
-            'url'         => 'ratings/all',
-            'icon'        => 'far fa-fw fa-file',
-        ],
-        [
-            'text'        => 'Hotels ratings',
-            'url'         => 'ratings/all/hotels',
-            'icon'        => 'far fa-fw fa-file',
-        ],
-        [
-            'text'        => 'Hotel ratings',
-            'url'         => 'rating/hotel/form',
-            'icon'        => 'far fa-fw fa-file',
-        ],
-        //-----------------------end of Ratings And Reserved Pages-------------//
         ['header' => 'Tickets'],
         [
             'text' => 'Availble tickets',
@@ -415,6 +401,12 @@ return [
         [
             'text' => 'Add Hotels',
             'url'  => '/hotelcreate/{id}',
+            'icon' => 'far fa-fw fa-file',
+            'icon_color' => 'green',
+        ],
+        [
+            'text' => 'search Hotel',
+            'url'  => '/hotel/form',
             'icon' => 'far fa-fw fa-file',
             'icon_color' => 'green',
         ],

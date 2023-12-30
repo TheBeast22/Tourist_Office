@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 class HotelController extends Controller
 {
+    use Traits\TestData;
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +17,7 @@ class HotelController extends Controller
     public function index()
     {
         $hotels=Hotel::all();
-        $city=City::all('name');
-        return view('hotel/index_hotel',['hotels'=>$hotels,'city'=>$city]);
+        return view('hotel/index_hotel',['hotels'=>$hotels]);
     }
 
     /**
@@ -64,11 +64,15 @@ class HotelController extends Controller
      * @param  \App\Models\Hotel  $hotel
      * @return \Illuminate\Http\Response
      */
-    public function show(Hotel $hotel)
+    public function show(Request $request)
     {
-        //
+        $hotel = Hotel::where("name",$request->name)->first();
+        $this->test($hotel,"hotel");
+        return view("hotel.one",["hotel"=>$hotel]);
     }
-
+    public function showForm(){
+        return view("hotel.form");
+    }
     /**
      * Show the form for editing the specified resource.
      *
