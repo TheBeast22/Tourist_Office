@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 class CustomerController extends Controller
 {
+    use Traits\TestData;
     /**
      * Display a listing of the resource.
      *
@@ -16,14 +17,12 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::all();
-        if(empty($customers[0]))
-          return redirect()->to(route("errors",["message"=>"some data not found"]));
+        $this->test($customers,"customers");
         return view("customers.all", ["customers"=> $customers]);
     }
     public function bookedCostomers(){
         $customers = Customer::whereIn("id",Booking::pluck("customer_id"))->get();
-        if(empty($customers[0]))
-         return redirect()->to(route("errors",["message"=>"some data not found"]));
+        $this->test($customers,"customers");
         return view("customers.all",["customers"=>$customers]);
     }
     public function customerForm(){
@@ -31,8 +30,7 @@ class CustomerController extends Controller
     }
     public function customerFromEmail(Request $request){
         $customer = Customer::where("email",$request->email)->first();
-        if(empty($customer))
-         return redirect()->to(route("errors",["message"=>"some data not found"]));
+        $this->test($customer,"customer");
         return view("customers.one", ["customer"=> $customer]);
     }
     /**
@@ -60,8 +58,7 @@ class CustomerController extends Controller
             "name"=>"required|string|min:3|max:20|regex:/^[A-Za-z]+$/",
             "gender"=>"required|string|in:male,fmale"
         ],$message);
-        if($validate->fails())
-         return redirect()->to(route("errors",["message"=> $validate->errors()->first()]));
+        $this->test($validate);
         Customer::create(["name"=>$request->name,"mobile"=>$request->mobile,"gender"=>$request->gender,"email"=>$request->email]);
         return redirect()->to(route("all_customers"));
     }
@@ -103,8 +100,7 @@ class CustomerController extends Controller
             "name"=>"required|string|min:3|max:20|regex:/^[A-Za-z]+$/",
             "gender"=>"required|string|in:male,fmale"
         ],$message);
-        if($validate->fails())
-         return redirect()->to(route("errors",["message"=> $validate->errors()->first()]));
+        $this->test($validate);
         $customer->name = $request->name;
         $customer->mobile = $request->mobile;
         $customer->gender = $request->gender;
@@ -124,8 +120,7 @@ class CustomerController extends Controller
         $validate = Validator::make(["id" => $customer->id],[
             "id"=>"required|integer|exists:customers,id|not_in:" . implode(',',Booking::pluck("customer_id")->toArray())
         ],["id.not_in"=>"the customer has booking"]);
-        if($validate->fails())
-         return redirect()->to(route("errors",["message"=> $validate->errors()->first()]));
+        $this->test($validate);
         $customer->delete();
         return redirect()->to(route("all_customers"));
     }
