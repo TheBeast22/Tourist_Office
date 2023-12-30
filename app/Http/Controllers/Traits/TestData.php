@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Traits;
 trait TestData{
     public function test($data,$message = NULL){
        if($message){
-          if(!isset($data[0]) || empty($data[0]))
-           die(view("errors",["message"=>"$message not found"]));
-
+          if(empty($data) || (is_array($data) && empty($data[0])))
+               die(view("errors",["message"=>"$message not found"]));
       }
        else
         if($data->fails())
