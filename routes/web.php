@@ -60,3 +60,8 @@ Route::post("/filter/ticket", [App\Http\Controllers\TicketController::class,'sho
 Route::get("ticket/addticket", [App\Http\Controllers\TicketController::class,'add'])->name('add-ticket')->middleware("auth");;
 Route::post("/create/ticket", [App\Http\Controllers\TicketController::class,'store'])->name('create-ticket')->middleware("auth");;
 Route::get("/delete/ticket{ticket}", [App\Http\Controllers\TicketController::class,'destroy'])->name('delete-ticket')->middleware("auth");;
+//------------------------------------- Hotel Routes -----------------------------------------------------------------//
+Route::get("/hotelindex", [App\Http\Controllers\HotelController::class,'index'])->name('index_hotel')->middleware("auth");
+Route::get("/hotelcreate/{id}", [App\Http\Controllers\HotelController::class,'create'])->name('create_hotel')->middleware("auth");
+Route::post("/hotelstore", [App\Http\Controllers\HotelController::class,'store'])->name('store_hotel')->middleware("auth");
+Route::get("/deletehotel{hotel}", [App\Http\Controllers\HotelController::class,'destroy'])->name('delete-hotel')->middleware("auth");

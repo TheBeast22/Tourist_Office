@@ -405,6 +405,19 @@ return [
                 ],
             ],
         ],
+        ['header' => 'hotels'],
+        [
+            'text' => ' All Hotels',
+            'url'  => '/hotelindex',
+            'icon' => 'far fa-fw fa-file',
+            'icon_color' => 'green',
+        ],
+        [
+            'text' => 'Add Hotels',
+            'url'  => '/hotelcreate/{id}',
+            'icon' => 'far fa-fw fa-file',
+            'icon_color' => 'green',
+        ],
         ['header' => 'labels'],
         [
             'text'       => 'important',

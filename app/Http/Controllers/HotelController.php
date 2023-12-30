@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hotel;
+use App\Models\City;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 class HotelController extends Controller
 {
     /**
@@ -14,7 +15,9 @@ class HotelController extends Controller
      */
     public function index()
     {
-        //
+        $hotels=Hotel::all();
+        $city=City::all('name');
+        return view('hotel/index_hotel',['hotels'=>$hotels,'city'=>$city]);
     }
 
     /**
@@ -24,7 +27,8 @@ class HotelController extends Controller
      */
     public function create()
     {
-        //
+        $city=City::all();
+        return view('hotel/add_hotel',['city'=>$city]);
     }
 
     /**
@@ -35,7 +39,23 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->IsMethod("post"))
+        {    $validate=Validator::make($request->all(),[
+            'name'=>'required|unique:hotels,name',
+           ]);
+
+            if($validate->fails()){
+   
+            return $validate->errors();
+   
+            }else{
+                
+              Hotel::create(['name'=>$request->name,
+              'city_id'=>$request->city,
+             ]);
+               return redirect()->to(route("index_hotel"));    
+}   
+    }
     }
 
     /**
@@ -80,6 +100,7 @@ class HotelController extends Controller
      */
     public function destroy(Hotel $hotel)
     {
-        //
+        $hotel->delete();
+        return redirect()->to(route("index_hotel"));   
     }
 }
