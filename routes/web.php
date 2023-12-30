@@ -18,9 +18,6 @@ use Illuminate\Support\Facades\Auth;
 Route::get("/", function () {
     return view('welcome');
 });
-Route::get("/errors/{message}",function($message){
-    return view("errors",["message"=>$message]);
-})->name("errors");
 Auth::routes();
 Route::get("home",  [App\Http\Controllers\TicketController::class,'filter'])->name("home")->middleware("auth");
 //--------------------------------------Customer Routes------------------------------------------------------------//

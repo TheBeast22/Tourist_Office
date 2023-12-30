@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 class RatingController extends Controller
 {
+    use Traits\TestData;
     /**
      * Display a listing of the resource.
      *
@@ -19,20 +20,18 @@ class RatingController extends Controller
     {
         $ratings = Rating::all();
         $customers = Customer::whereIn("id",Rating::pluck("customer_id")->toArray())->get();
-        if(empty($ratings[0]) || empty($customers[0]))
-         return redirect()->to(route("errors",["message"=>"some data not found"]));
+        $this->test($ratings,"ratings");
+        $this->test($customers,"customers");
         return view("ratings.all", ["customers"=> $customers,"ratings"=> $ratings]);
     }
     public function customerRatings(Customer $customer){
         $ratings = Rating::where("customer_id",$customer->id)->get();
-        if(empty($ratings[0]))
-        return redirect()->to(route("errors",["message"=>"some data not found"]));
+        $this->test($ratings,"customer ratings");
         return view("ratings.customer",["customer"=> $customer,"ratings"=> $ratings]);
     }
     public function allHotelsRatings(){
         $hotels = Hotel::whereIn("id",Rating::pluck("hotel_id")->toArray())->get();
-        if(empty($hotels[0]))
-        return redirect()->to(route("errors",["message"=>"some data not found"]));
+        $this->test($hotels,"rated hotels");
         return view("ratings.hotels",["hotels"=> $hotels]);
     }
     public function hotelRatingsForm(){
@@ -40,8 +39,7 @@ class RatingController extends Controller
     }
     public function hotelRatings(Request $request){
         $hotel = Hotel::where("name",$request->name)->first();
-        if(empty($hotel))
-         return redirect()->to(route("errors",["message"=>"some data not found"]));
+        $this->test($hotel,"ratings");
         return view("ratings.hotel",["hotel"=>$hotel]);
     }
     /**
@@ -72,8 +70,7 @@ class RatingController extends Controller
             "rate"=>"required|integer|min:0|max:5",
             "comment"=>"nullable|string|min:0|max:255"
         ],["hotel_id.in"=>"you cant rate hotel you didn't reserve it before"]);
-        if($validate->fails())
-         return redirect()->to(route("errors",["message"=> $validate->errors()->first()]));
+        $this->test($validate);
         Rating::create(["customer_id"=>$request->customer_id,"hotel_id"=>$request->hotel_id,"rate"=>$request->rate,"comment"=>$request->comment]);
         return redirect()->to(route("all_ratings"));
     }
@@ -104,8 +101,7 @@ class RatingController extends Controller
             "rate"=>"required|integer|min:0|max:5",
             "comment"=>"nullable|string|min:0|max:255"
         ],["hotel_id.in"=>"you cant rate hotel you didn't reserve it before"]);
-        if($validate->fails())
-         return redirect()->to(route("errors",["message"=> $validate->errors()->first()]));
+        $this->test($validate);
         $rating->rate = $request->rate;
         $rating->comment = $request->comment;
         $rating->save();
