@@ -8,13 +8,13 @@
 
 @section('content')
 <center><h1></h1><center><br><br>
-<form method="post" action='{{route("hotel_ratings")}}'>
+<form method="post" action='{{route("one_hotel")}}'>
     {{csrf_field()}}
     <div class="form-group col-md-4">
     <label for="name">Hotel Name: </label>
     <input type="text" name="name" id="name">
     </div>
-    <button type="submit" class="btn btn-primary">show ratings</button>
+    <button type="submit" class="btn btn-primary">show hotel</button>
 </form>
 @stop
 

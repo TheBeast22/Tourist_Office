@@ -47,13 +47,19 @@ class RatingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function emailChoosen($hotel_id){
+        $customers = Customer::whereIn("id",Customers_Hotel::where("hotel_id", $hotel_id)->pluck("customer_id")->toArray())->get();
+        $this->test($customers,"email");
+        return view("ratings.cemails",["customers"=>$customers,"hotel_id"=>$hotel_id]);
+    }
     public function create(Request $request)
     {
+        
         $rating = Rating::where("customer_id",$request->customer_id)->where("hotel_id",$request->hotel_id)->first();
         if($rating)
          return redirect()->to(route("edit_rating",["rating"=>$rating]));
     
-        return view("ratings.add",["request"=> $request]);
+        return view("ratings.add",["request"=>$request]);
     }
 
     /**
