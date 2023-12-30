@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Route;
+
 class CompanyController extends Controller
 {
     /**
@@ -26,13 +26,13 @@ class CompanyController extends Controller
    */
   public function store(Request $request)
   {
-    $message =['Please Enter you Company'];
+    
     $validate = Validator::make($request->all(), [
       'title' => 'required|string|min:8|max:50|regex:/^[A-Za-z]+$/',
       'address' => 'required|string|min:8|max:50|regex:/^[A-Za-z]+$/',
       'phone' => "required|string|unique:companies,phone|regex:/^(09)[0-9]{7}[1-9]$/",
 
-    ],$message);
+    ]);
     if($validate->fails())
     die(dd($validate->errors()));
 
@@ -54,7 +54,7 @@ class CompanyController extends Controller
       'address' => 'required|string|min:8|max:50|regex:/^[A-Za-z]+$/',
       'phone' => "required|string|unique:companies,phone|regex:/^(09)[0-9]{7}[1-9]$/",
 
-    ],$message);
+    ]);
     if($validate->fails())
         dd(die($validate->errors()));
 

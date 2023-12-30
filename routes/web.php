@@ -3,6 +3,7 @@
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\CustomersHotelController;
+use App\Http\Controllers\CompanyController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -63,16 +64,16 @@ Route::get("/hotelcreate/{id}", [App\Http\Controllers\HotelController::class,'cr
 Route::post("/hotelstore", [App\Http\Controllers\HotelController::class,'store'])->name('store_hotel')->middleware("auth");
 Route::get("/deletehotel{hotel}", [App\Http\Controllers\HotelController::class,'destroy'])->name('delete-hotel')->middleware("auth");
 
-Route::get('/index', [CompanyController::class, 'index'])->name('Company.index');
+Route::get('/index', [CompanyController::class, 'index'])->name('Company.index')->middleware('auth');
 // returns the form for adding a post
-Route::get('/Company/create',[CompanyController::class, 'create'])->name('Company.create');
+Route::get('/Company/create',[CompanyController::class, 'create'])->name('Company.create')->middleware('auth');
 // adds a post to the database
-Route::post('/Company',[CompanyController::class, 'store'])->name('Company.store');
+Route::post('/Company',[CompanyController::class, 'store'])->name('Company.store')->middleware('auth');
 // returns a page that shows a full company
-Route::get('/Company/{company}',[CompanyController::class, 'show'])->name('Company.show');
+Route::get('/Company/{company}',[CompanyController::class, 'show'])->name('Company.show')->middleware('auth');
 // returns the form for editing a company
-Route::get('/Company/{company}/edit',[CompanyController::class, 'edit'])->name('Company.edit');
+Route::get('/Company/{company}/edit',[CompanyController::class, 'edit'])->name('Company.edit')->middleware('auth');
 // updates a company
-Route::put('/Company/{company}',[CompanyController::class, 'update'])->name('Company.update');
+Route::put('/Company/{company}',[CompanyController::class, 'update'])->name('Company.update')->middleware('auth');
 // deletes the company
-Route::delete('/Company/{company}',[CompanyController::class, 'destroy'])->name('Company.destroy');
+Route::delete('/Company/{company}',[CompanyController::class, 'destroy'])->name('Company.destroy')->middleware('auth');
