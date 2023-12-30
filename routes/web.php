@@ -62,3 +62,17 @@ Route::get("/hotelindex", [App\Http\Controllers\HotelController::class,'index'])
 Route::get("/hotelcreate/{id}", [App\Http\Controllers\HotelController::class,'create'])->name('create_hotel')->middleware("auth");
 Route::post("/hotelstore", [App\Http\Controllers\HotelController::class,'store'])->name('store_hotel')->middleware("auth");
 Route::get("/deletehotel{hotel}", [App\Http\Controllers\HotelController::class,'destroy'])->name('delete-hotel')->middleware("auth");
+
+Route::get('/index', [CompanyController::class, 'index'])->name('Company.index');
+// returns the form for adding a post
+Route::get('/Company/create',[CompanyController::class, 'create'])->name('Company.create');
+// adds a post to the database
+Route::post('/Company',[CompanyController::class, 'store'])->name('Company.store');
+// returns a page that shows a full company
+Route::get('/Company/{company}',[CompanyController::class, 'show'])->name('Company.show');
+// returns the form for editing a company
+Route::get('/Company/{company}/edit',[CompanyController::class, 'edit'])->name('Company.edit');
+// updates a company
+Route::put('/Company/{company}',[CompanyController::class, 'update'])->name('Company.update');
+// deletes the company
+Route::delete('/Company/{company}',[CompanyController::class, 'destroy'])->name('Company.destroy');

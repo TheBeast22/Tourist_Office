@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Route;
 class CompanyController extends Controller
 {
     /**
@@ -13,89 +14,97 @@ class CompanyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+  {
+    $companies = Company::all();
+    return view('Company.index', compact('companies'));
+  }
+  /**
+   * Store a newly created resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @return \Illuminate\Http\Response
+   */
+  public function store(Request $request)
+  {
+    $message =['Please Enter you Company'];
+    $validate = Validator::make($request->all(), [
+      'title' => 'required|string|min:8|max:50|regex:/^[A-Za-z]+$/',
+      'address' => 'required|string|min:8|max:50|regex:/^[A-Za-z]+$/',
+      'phone' => "required|string|unique:companies,phone|regex:/^(09)[0-9]{7}[1-9]$/",
 
-        $company= $this->model->getCompanies();
-            foreach($company as $one)
-            {
-                echo json_encode($one);
+    ],$message);
+    if($validate->fails())
+    die(dd($validate->errors()));
 
-            }
-    }
+    Company::create($request->all());
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    return redirect()->route('Company.index')
+      ->with('success', 'company created successfully.');
+  }
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function update(Request $request, $id) {
+    $validate = Validator::make($request->all(), [
+      'title' => 'required|string|min:8|max:50|regex:/^[A-Za-z]+$/',
+      'address' => 'required|string|min:8|max:50|regex:/^[A-Za-z]+$/',
+      'phone' => "required|string|unique:companies,phone|regex:/^(09)[0-9]{7}[1-9]$/",
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    ],$message);
+    if($validate->fails())
+        dd(die($validate->errors()));
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id,Request $request)
-    {
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Company $company)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Company $company)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Company $company)
-    {
-        //
-    }
-    public function info($id,Request $request)
-    {
-        // $company = Company::find($id);
-        // if(request->isMethod('get')){
-        //     $company->update($request->all());
-        //     return redirect()->back();
-        // }else{
-        //     return view('Company',['company'=>$company]);
-        // }
-    }
+    $company = Company::find($id);
+    $company->update($request->all());
+    return redirect()->route('Company.index')
+      ->with('success', 'Post updated successfully.');
+  }
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy($id){
+    $company = Company::find($id);
+    $company->delete();
+    return redirect()->route('Company.index')
+      ->with('success', 'Company deleted successfully');
+  }
+  // routes functions
+  /**
+   * Show the form for creating a new post.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function create()
+  {
+    return view('Company.create');
+  }
+  /**
+   * Display the specified resource.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function show($id)
+  {
+    $company = Company::find($id);
+    return view('Company.show', compact('company'));
+  }
+  /**
+   * Show the form for editing the specified post.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function edit($id)
+  {
+    $company = Company::find($id);
+    return view('Company.edit', compact('company'));
+  }
 }
