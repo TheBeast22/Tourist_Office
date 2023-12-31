@@ -8,7 +8,7 @@ use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 class TicketController extends Controller
-{
+{     use Traits\TestData;
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +16,7 @@ class TicketController extends Controller
      */
     public function filter()
     {   $ticket=Ticket::all();
+        $this->test( $ticket,"tickets");
         $city=City::all();
         return view('home',['ticket'=>$ticket,'city'=>$city]);
     }
@@ -32,19 +33,16 @@ class TicketController extends Controller
             'date'=>'required|date|after_or_equal:now|nullable',
             'city'=>'exists:cities,id'
            ]);  
-           if($validate->fails()){
-   
-            return $validate->errors();
-  
-          }else{ 
+       
+            $this->test($validate); 
           
           $date_s=$request->date;
-          echo $date_s;
          $city_id=$request->city;
         $ticket=Ticket::where('city_id',$city_id)->where('date_s',$date_s)->get();
+        $this->test( $ticket,"tickets");
         $city=City::all();
         return view('home',['ticket'=>$ticket,'city'=>$city]);
-     }}}
+     }}
 
 
    
@@ -70,17 +68,14 @@ class TicketController extends Controller
           
             'id'=>'integer|exists:tickets,id']);
            
-            if($validate->fails()){
-   
-            return $validate->errors();
-   
-            }else{
+            $this->test($validate);
       $ticket->delete();
       return redirect()->to(route('home'));
      
     }
      
-    }
+    
+
     public function store(Request $request)
     {
         if($request->IsMethod("post"))
@@ -90,29 +85,39 @@ class TicketController extends Controller
                 'company'=>'required|integer|exists:companies,id',
                 'city'=>'required|integer|exists:cities,id',
                 'date_s'=>'date|required|after_or_equal:now',
-                'date_e'=>'date|required|after_or_equal:date_s'
+                'date_e'=>'date|required|after_or_equal:date_s']);
                 
-                
-                ]);
-                
-                if($validate->fails()){
-                echo $validate->errors();
-                 }
-                else{  $address_company=Company::find($request->company)->address;
-                    $city_name=City::find($request->city)->name;
-                  if( !str_contains($address_company,$city_name)){
+               $this->test($validate);
+                    $company_id=$request->company;
+                    $city_id= $request->city;
+                   $date_s=$request->date_s;
+                   $date_e=$request->date_s;
+                   $exist=false;
+                    $tickets=Ticket::where('company_id',$company_id)->where('company_id',$city_id)->get();
+               
+                        foreach($tickets as $ticket)
+                    {
+                       if($ticket->date_s==$date_s)
+                       {$exist=true;
+                        break;}
+                    }
+                     $address_company=Company::find($company_id)->address;
+                    $city_name=City::find($city_id)->name;
+                  
+               
+                  if( !str_contains($address_company,$city_name)&&!$exist){
  
                             Ticket::create(
-                     ['company_id'=>$request->company,
-                     'city_id'=>$request->city,
-                     'date_s'=>$request->date_s,
-                     'date_e'=>$request->date_e ]);
-                      echo json_encode(['status'=>'Add Ticket']);
+                     ['company_id'=>$company_id,
+                     'city_id'=>$city_id,
+                     'date_s'=>$date_s,
+                     'date_e'=>$date_e ]);
+                     return view('errors',['message'=>'the ticket has added successfuly!']);
                   }
                   else{
-                     echo "not allowed to add this ticket";
+                    return view('errors',['message'=>'not allowed to add this ticket']);
                   }
-        }
+        
                 
                 
     }

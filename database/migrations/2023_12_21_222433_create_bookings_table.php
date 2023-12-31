@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreign("customer_id")->references("id")->on("customers");
             $table->foreign("hotel_id")->references("id")->on("hotels")->onDelete("SET NULL");
             $table->unique(["ticket_id","customer_id","hotel_id"]);
+            $table->unique(["ticket_id","customer_id"]);
             $table->timestamps();
         });
     }
