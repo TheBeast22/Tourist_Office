@@ -11,7 +11,7 @@ use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 class BookingController extends Controller
-{
+{    use Traits\TestData;
     /**
      * Display a listing of the resource.
      *
@@ -21,6 +21,7 @@ class BookingController extends Controller
     {
          
        $bookings=Booking::all();
+       $this->test( $bookings,"bookings");
        return view('booking/viewbooking',['bookings'=>$bookings]);
     }
 
@@ -34,11 +35,7 @@ class BookingController extends Controller
       'date'=>'date|nullable'
     ]);
 
-    if($validate->fails()){
-
-    return $validate->errors();
-
-    }else{
+    $this->test($validate);
       $email =$request->email;
       $date =$request->date;
       switch($request->filter)
@@ -46,16 +43,19 @@ class BookingController extends Controller
             
     $custom=Customer::where('email',$email)->value('id'); 
     $bookings=Booking::where('customer_id',$custom)->get();
+    $this->test( $bookings,"bookings");
     return view('booking/viewbooking',["bookings"=> $bookings]);
        
     break;
     case 2 :
     $bookings=Booking::where('book_date',$date)->get();
+    $this->test( $bookings,"bookings");
     return view('booking/viewbooking',["bookings"=> $bookings]);
     break;
     case 3 :
         
     $custom=Customer::where('email',$email)->value('id');  
+    $this->test( $bookings,"bookings");
     $bookings=Booking::where('customer_id',$custom)->where('book_date',$date)->get();
     return view('booking/viewbooking',["bookings"=> $bookings]);
     break;
@@ -64,7 +64,7 @@ class BookingController extends Controller
 
   }}
 
-    }}
+    }
     public function delete(Booking $booking){
        
              
@@ -73,14 +73,11 @@ class BookingController extends Controller
         'id'=>'integer|exists:bookings,id'
     
       ]);
-      if($validate->fails()){
-        echo $validate->errors();
-         }
-        else{
+      $this->test($validate);
         $booking->delete();
         
         return redirect()->to(route('books'));
-    }}
+    }
  
 
     /**
@@ -110,11 +107,7 @@ class BookingController extends Controller
             'email'=>'required|email|exists:customers,email|max:20|ends_with:yahoo.com,hotmail.com,gmail.com',
             'hotel'=>'integer|nullable|exists:hotels,id']);
 
-            if($validate->fails()){
-   
-            return $validate->errors();
-   
-            }else{
+            $this->test($validate);
               $customer_id=Customer::where('email',$request->email)->value('id'); 
               $custom_tickets=Customer::find($customer_id)->tikets;
               $exist=false;
@@ -127,8 +120,9 @@ class BookingController extends Controller
                'customer_id'=>$customer_id,
                'hotel_id'=>$request->hotel,
                'book_date'=>$request->date ]);
-                echo json_encode(['status'=>'created']);}
-              else echo json_encode(['status'=>'customer has already exist']);
+               return view('errors',['message'=>'the booking has added successfuly!']);
+              }
+              else return view('errors',['message'=>'customer has already exist']);
        
                  
                
@@ -136,7 +130,7 @@ class BookingController extends Controller
     
     
          
-}   
+ 
     }}
 
     /**
@@ -174,12 +168,7 @@ class BookingController extends Controller
     {   
       $validate=Validator::make($request->all(),[
         'hotel'=>'integer|nullable|exists:hotels,id']);
-   
-        if($validate->fails()){
-
-        return $validate->errors();
-
-        }else{
+        $this->test($validate);
        
        $hotel_id=$request->hotel;
        $book= Booking::find($id);
@@ -187,7 +176,7 @@ class BookingController extends Controller
       
        return redirect()->to(route('books'));
     }
-  }
+  
     /**
      * Remove the specified resource from storage.
      *

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->dateTime("date_e");
             $table->foreign("company_id")->references("id")->on("companies")->onDelete("CASCADE")->onUpdate("CASCADE");
             $table->foreign("city_id")->references("id")->on("cities");
-            $table->unique(["company_id","city_id"]);
+            $table->unique(["company_id","city_id","date_s"]);
             $table->timestamps();
         });
     }
