@@ -94,25 +94,26 @@ class TicketController extends Controller
                    $date_e=$request->date_s;
                    $exist=false;
                     $tickets=Ticket::where('company_id',$company_id)->where('company_id',$city_id)->get();
-               
+                       
                         foreach($tickets as $ticket)
                     {
                        if($ticket->date_s==$date_s)
                        {$exist=true;
+                    
                         break;}
                     }
                      $address_company=Company::find($company_id)->address;
                     $city_name=City::find($city_id)->name;
                   
                
-                  if( !str_contains($address_company,$city_name)&&!$exist){
+                  if( !str_contains($address_company,$city_name)&&$exist=false){
  
                             Ticket::create(
                      ['company_id'=>$company_id,
                      'city_id'=>$city_id,
                      'date_s'=>$date_s,
                      'date_e'=>$date_e ]);
-                     return view('errors',['message'=>'the ticket has added successfuly!']);
+                     return view('success');
                   }
                   else{
                     return view('errors',['message'=>'not allowed to add this ticket']);
