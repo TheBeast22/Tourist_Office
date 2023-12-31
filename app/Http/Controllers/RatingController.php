@@ -39,6 +39,7 @@ class RatingController extends Controller
     }
     public function hotelRatings(Request $request){
         $hotel = Hotel::where("name",$request->name)->first();
+        $this->test($hotel,"hotel");
         $ratings = Rating::where("hotel_id",$hotel->id)->get();
         $this->test($ratings,"ratings");
         return view("ratings.hotel",["hotel"=>$hotel]);
