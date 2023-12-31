@@ -55,8 +55,9 @@ class BookingController extends Controller
     case 3 :
         
     $custom=Customer::where('email',$email)->value('id');  
-    $this->test( $bookings,"bookings");
+   
     $bookings=Booking::where('customer_id',$custom)->where('book_date',$date)->get();
+    $this->test( $bookings,"bookings");
     return view('booking/viewbooking',["bookings"=> $bookings]);
     break;
         
@@ -120,7 +121,7 @@ class BookingController extends Controller
                'customer_id'=>$customer_id,
                'hotel_id'=>$request->hotel,
                'book_date'=>$request->date ]);
-               return view('errors',['message'=>'the booking has added successfuly!']);
+               return view('success');
               }
               else return view('errors',['message'=>'customer has already exist']);
        
