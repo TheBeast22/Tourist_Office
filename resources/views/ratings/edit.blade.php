@@ -16,7 +16,7 @@
     </div>
     <div class="form-group col-md-4">
      <label for="comment">comment:</label>
-     <input type="text" id="comment" name="comment" value="{{$rating->comment}}">
+     <textarea id="comment" name="comment">{{$rating->comment}}</textarea>
     </div>
     <button type="submit" class="btn btn-primary">Edit Rate</button>
 </form>
