@@ -17,6 +17,7 @@ class HotelController extends Controller
     public function index()
     {
         $hotels=Hotel::all();
+        $this->test( $hotels,"hotels");
         return view('hotel/index_hotel',['hotels'=>$hotels]);
     }
 
@@ -41,20 +42,15 @@ class HotelController extends Controller
     {
         if($request->IsMethod("post"))
         {    $validate=Validator::make($request->all(),[
-            'name'=>'required|unique:hotels,name',
+            'name'=>'required|string|unique:hotels,name|regex:/^[A-Za-z]+$/',
            ]);
+           $this->test($validate);
 
-            if($validate->fails()){
-   
-            return $validate->errors();
-   
-            }else{
-                
               Hotel::create(['name'=>$request->name,
               'city_id'=>$request->city,
              ]);
                return redirect()->to(route("index_hotel"));    
-}   
+ 
     }
     }
 
