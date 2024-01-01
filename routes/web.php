@@ -80,3 +80,4 @@ Route::get('/Company/{company}/edit',[CompanyController::class, 'edit'])->name('
 Route::put('/Company/{company}',[CompanyController::class, 'update'])->name('Company.update')->middleware('auth');
 // deletes the company
 Route::delete('/Company/{company}',[CompanyController::class, 'destroy'])->name('Company.destroy')->middleware('auth');
+//----------------------------------------end cumpany---------------------------------------------------------------//
