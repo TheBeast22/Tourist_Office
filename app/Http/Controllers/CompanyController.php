@@ -26,7 +26,7 @@ class CompanyController extends Controller
    */
   public function store(Request $request)
   {
-    
+
     $validate = Validator::make($request->all(), [
       'title' => 'required|string|min:8|max:50|regex:/^[A-Za-z]+$/',
       'address' => 'required|string|min:8|max:50|regex:/^[A-Za-z]+$/',
@@ -93,8 +93,8 @@ class CompanyController extends Controller
    */
   public function show($id)
   {
-    $company = Company::find($id);
-    return view('Company.show', compact('company'));
+    $companies1 = Company::find($id);
+    return view('Company.show', compact('companies1'));
   }
   /**
    * Show the form for editing the specified post.
