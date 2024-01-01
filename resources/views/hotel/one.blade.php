@@ -20,11 +20,6 @@
     <a href='{{route("hotel_ratings",["name"=>$hotel->name])}}'>ratings</a>
     <a href='{{route("customer_rating_form",["hotel_id"=>$hotel->id])}}'>rate it</a>
 </li>
-<form method="get" action= "{{ route('create_hotel',['id'=>$hotel->id])}}">
-{{ csrf_field() }}
-<input type="submit" value="Add Hotel">
-</form>
-
 
 @stop
 

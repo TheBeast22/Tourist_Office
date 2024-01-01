@@ -39,7 +39,9 @@ class RatingController extends Controller
     }
     public function hotelRatings(Request $request){
         $hotel = Hotel::where("name",$request->name)->first();
-        $this->test($hotel,"ratings");
+        $this->test($hotel,"hotel");
+        $ratings = Rating::where("hotel_id",$hotel->id)->get();
+        $this->test($ratings,"ratings");
         return view("ratings.hotel",["hotel"=>$hotel]);
     }
     /**
@@ -49,7 +51,7 @@ class RatingController extends Controller
      */
     public function emailChoosen($hotel_id){
         $customers = Customer::whereIn("id",Customers_Hotel::where("hotel_id", $hotel_id)->pluck("customer_id")->toArray())->get();
-        $this->test($customers,"email");
+        $this->test($customers,"reservesd customers");
         return view("ratings.cemails",["customers"=>$customers,"hotel_id"=>$hotel_id]);
     }
     public function create(Request $request)

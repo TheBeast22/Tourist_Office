@@ -13,10 +13,12 @@
     <input type="hidden" value="{{$request->customer_id}}" name="customer_id">
     <input type="hidden" value="{{$request->hotel_id}}" name="hotel_id"> 
     <div class="form-group col-md-4">
-    <input type="number" min="0" max="5" name="rate" class="form-control">
+    <label for="rate">rate:</label>
+    <input type="number" min="0" max="5" name="rate" class="form-control" id="rate">
     </div>
     <div class="form-group col-md-4">
-    <textarea name="comment" class="form-control"></textarea>
+    <label for="comment">comment:</label>
+    <textarea name="comment" class="form-control" id="comment"></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Add Rate</button>
 </form>

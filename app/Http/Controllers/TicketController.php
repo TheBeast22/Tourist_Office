@@ -100,7 +100,6 @@ class TicketController extends Controller
                        {$exist=true;
                         break;
                         }
-                       
                     }
                  
                    
