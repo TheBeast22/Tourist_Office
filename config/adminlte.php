@@ -410,6 +410,31 @@ return [
             'icon' => 'far fa-fw fa-file',
             'icon_color' => 'green',
         ],
+          //----------------------Companies Pages--------------------------------//
+       ['header' => 'Companies'],
+
+       [
+           'text'        => 'add Company',
+           'url'         => 'Company/create',
+           'icon'        => 'far fa-fw fa-file',
+       ],
+       [
+           'text'        => 'show Company',
+           'url'         => '/index',
+           'icon'        => 'far fa-fw fa-file',
+       ],
+       //-----------------------end of Companies Pages------------------------//
+       ['header'=>'Cities'],
+       [
+          'text' => 'all cities',
+          'url' => 'city/index',
+          'icon' =>'far fa-fw fa-file',
+       ],
+       [
+        'text' => 'add city',
+        'url' => 'city/create',
+        'icon' =>'far fa-fw fa-file',
+     ],
         ['header' => 'labels'],
         [
             'text'       => 'important',

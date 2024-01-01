@@ -1,1 +1,0 @@
-resources/views/company/destroy.blade.php

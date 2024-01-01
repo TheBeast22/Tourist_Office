@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends Controller
 {
+     use Traits\TestData;
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +17,7 @@ class CompanyController extends Controller
     public function index()
   {
     $companies = Company::all();
+    $this->test($companies,"companies");
     return view('Company.index', compact('companies'));
   }
   /**
@@ -26,42 +28,21 @@ class CompanyController extends Controller
    */
   public function store(Request $request)
   {
-    
+
     $validate = Validator::make($request->all(), [
-      'title' => 'required|string|min:8|max:50|regex:/^[A-Za-z]+$/',
-      'address' => 'required|string|min:8|max:50|regex:/^[A-Za-z]+$/',
-      'phone' => "required|string|unique:companies,phone|regex:/^(09)[0-9]{7}[1-9]$/",
+      'title' => 'required|string|min:8|max:50|regex:/^[A-Za-z]+$/|unique:companies,title',
+      'address' => 'required|string|min:8|max:50|regex:/^[A-Za-z]+(-)[A-Za-z]+(-)[A-Za-z0-9]+$/',
+      'phone' => "required|string|unique:companies,phone|regex:/^(09)[0-9]{8}$/",
 
     ]);
-    if($validate->fails())
-    die(dd($validate->errors()));
-
+    $this->test($validate);
+    $address = strtolower($request->address);
+    if(!str_contains($address,"syria"))
+     $this->test(null,"syria in address");
     Company::create($request->all());
 
     return redirect()->route('Company.index')
       ->with('success', 'company created successfully.');
-  }
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function update(Request $request, $id) {
-    $validate = Validator::make($request->all(), [
-      'title' => 'required|string|min:8|max:50|regex:/^[A-Za-z]+$/',
-      'address' => 'required|string|min:8|max:50|regex:/^[A-Za-z]+$/',
-      'phone' => "required|string|unique:companies,phone|regex:/^(09)[0-9]{7}[1-9]$/",
-
-    ]);
-    if($validate->fails())
-        dd(die($validate->errors()));
-
-    $company = Company::find($id);
-    $company->update($request->all());
-    return redirect()->route('Company.index')
-      ->with('success', 'Post updated successfully.');
   }
   /**
    * Remove the specified resource from storage.
@@ -70,6 +51,10 @@ class CompanyController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function destroy($id){
+    $validate = Validator::make(["id"=>$id],[
+      "id" => "required|integer|exists:companies,id",
+    ]);
+    $this->test($validate);
     $company = Company::find($id);
     $company->delete();
     return redirect()->route('Company.index')
@@ -84,27 +69,5 @@ class CompanyController extends Controller
   public function create()
   {
     return view('Company.create');
-  }
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function show($id)
-  {
-    $company = Company::find($id);
-    return view('Company.show', compact('company'));
-  }
-  /**
-   * Show the form for editing the specified post.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function edit($id)
-  {
-    $company = Company::find($id);
-    return view('Company.edit', compact('company'));
   }
 }
