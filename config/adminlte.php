@@ -310,21 +310,8 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-       //----------------------Companies Pages--------------------------------//
-       ['header' => 'Companies'],
-
-       [
-           'text'        => 'add Company',
-           'url'         => 'Company/create',
-           'icon'        => 'far fa-fw fa-file',
-       ],
-       [
-           'text'        => 'show Company',
-           'url'         => '/index',
-           'icon'        => 'far fa-fw fa-file',
-       ],
-       //-----------------------end of Companies Pages------------------------//
-       //----------------------Customer Pages--------------------------------//
+        // do the link here just copy the arrays and past again and cahnge text and url to what u want
+        //----------------------Customer Pages--------------------------------//
         ['header' => 'customers'],
         [
             'text'        => 'customers',
@@ -371,7 +358,7 @@ return [
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
                 [
-                    'text' => '',
+                    'text' => '', 
                      'url'  => '',
                 ],
                 [
