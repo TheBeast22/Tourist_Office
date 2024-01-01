@@ -1,3 +1,12 @@
+@extends('adminlte::page')
+
+@section('title', 'Dashboard')
+
+@section('content_header')
+    <h1>All Companies</h1>
+@stop
+
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,36 +18,35 @@ integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6
   <title>Company</title>
 </head>
 <body>
+
   <nav class="navbar navbar-expand-lg navbar-light bg-warning">
-    <div class="container-fluid">
-      <a class="navbar-brand h1" href={{ route('Company.index') }}>Company PAge</a>
-      <div class="justify-end ">
-        <div class="col ">
-          <a class="btn btn-sm btn-success" href={{ route('Company.create') }}>Add a Company</a>
-        </div>
-      </div>
+    <div class="container-fluid;">
+        <center>
+      <a class="navbar-brand h1" href={{ route('Company.index') }}>Company Page</a>
+      </center>
     </div>
   </nav>
+
+
   <div class="container mt-5">
     <div class="row">
       @foreach ($companies as $company)
-                <div class="col-me">
-                <div class="card">
-                    <div class="card-header">
-                    <h5 class="card-title">The Company Name : {{ "$company->title" }}</h5>
+                <div class="col">
+                <div class="card" style="width: 25rem; ">
+                    <div class="card-header border border-danger">
+
+                    <h5 class="card-title"><center>The Company Name is: </br>{{ "$company->title" }}</center></h5>
                     </div>
-                    <div class="card-body">
-                    <p class="card-text">The Address : {{ "$company->address" }}</p>
+                    <div class="border border-dark">
+                    <p class=" mb-2 text-body"><center>The Address : </br>{{ "$company->address" }}</center></p>
                     </div>
-                    <div class="card-body">
-                    <p class="card-number">PhoneNumber: {{ "$company->phone" }}</p>
+                    <div class=" border border-dark">
+                    <p class=" mb-2 text-body-secondary"><center>PhoneNumber: </br>{{ "$company->phone" }}</center></p>
                     </div>
-                    <div class="card-footer">
+                    <center>
+
+                    <div class="card-footer border border-primary">
                     <div class="row">
-                        <div class="col-sm">
-                        <a href="{{ route('Company.edit', $company->id) }}"
-                    class="btn btn-primary btn-sm">Edit</a>
-                        </div>
                         <div class="col-sm">
                             <form action="{{ route('Company.destroy', $company->id) }}" method="post">
                             {{ csrf_field()  }}
@@ -48,10 +56,25 @@ integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6
                         </div>
                     </div>
                     </div>
+
+                    </center>
                 </div>
                 </div>
       @endforeach
     </div>
   </div>
+
 </body>
 </html>
+
+
+
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
