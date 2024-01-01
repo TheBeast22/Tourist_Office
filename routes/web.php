@@ -80,3 +80,8 @@ Route::get('/Company/{company}/edit',[CompanyController::class, 'edit'])->name('
 Route::put('/Company/{company}',[CompanyController::class, 'update'])->name('Company.update')->middleware('auth');
 // deletes the company
 Route::delete('/Company/{company}',[CompanyController::class, 'destroy'])->name('Company.destroy')->middleware('auth');
+
+
+Route::get('city/index',[App\Http\Controllers\CityController::class,'index'])->name('index-cities');
+Route::get('city/create',[App\Http\Controllers\CityController::class,'create'])->name('create-city');
+Route::post('city/add',[App\Http\Controllers\CityController::class,'store'])->name('add-city');

@@ -98,9 +98,9 @@ class TicketController extends Controller
                         foreach($tickets as $ticket)
                     {if($ticket->date_s==$date_s)
                        {$exist=true;
-                    
-                        }
                         break;
+                        }
+                       
                     }
                  
                    
