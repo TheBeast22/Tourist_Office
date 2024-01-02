@@ -6,9 +6,10 @@ use App\Models\Customer;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Traits\TestData;
 class CustomerController extends Controller
 {
-    use Traits\TestData;
+    use TestData;
     /**
      * Display a listing of the resource.
      *
