@@ -7,8 +7,9 @@ use App\Models\City;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Traits\TestData;
 class TicketController extends Controller
-{     use Traits\TestData;
+{     use TestData;
     /**
      * Display a listing of the resource.
      *

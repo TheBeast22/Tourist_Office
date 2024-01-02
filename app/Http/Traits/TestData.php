@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Traits;
+namespace App\Http\Traits;
 
 trait TestData{
     public function test($data,$message = NULL){

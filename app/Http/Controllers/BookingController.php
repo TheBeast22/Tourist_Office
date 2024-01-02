@@ -10,8 +10,9 @@ use App\Models\Hotel;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Traits\TestData;
 class BookingController extends Controller
-{    use Traits\TestData;
+{    use TestData;
     /**
      * Display a listing of the resource.
      *

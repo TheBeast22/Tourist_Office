@@ -5,8 +5,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\City;
 use App\Models\Ticket;
+use App\Http\Traits\TestData;
 class CityController extends Controller
-{   use Traits\TestData;
+{   use TestData;
     /**
      * Display a listing of the resource.
      *

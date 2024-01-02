@@ -6,9 +6,10 @@ use App\Models\Hotel;
 use App\Models\City;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Traits\TestData;
 class HotelController extends Controller
 {
-    use Traits\TestData;
+    use TestData;
     /**
      * Display a listing of the resource.
      *
